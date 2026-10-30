@@ -44,5 +44,20 @@ A continuación se detalla el **Índice Documental y Formativo** que describe el
 * **`data/arquitectura-pwa.json`**
   * **Descripción Narrativa y Formativa:** Especificación Técnica de Estándares de Rendimiento. Archivo de configuración que detalla el grado de despliegue de las Progressive Web Apps (PWA), la gestión de interfaces adaptativas y el cumplimiento normativo de accesibilidad universal.
 
+### 6. Departamento 5: Sindicador de Empleo & Talento
+* **`departamento5-empleo-talento.html`**
+  * **Descripción Narrativa y Formativa:** Portal de Agregación Laboral y Desarrollo Profesional. Conecta la formación digital y sanitaria con los principales agregadores de empleo y redes de reclutamiento globales, facilitando la validación de perfiles.
+* **`js/talento-core.js`**
+  * **Descripción Narrativa y Formativa:** Motor Lógico de Cruce de Competencias. Script interactivo que procesa peticiones y simula la compatibilidad de perfiles profesionales con las demandas del mercado actual.
+* **`data/portales-empleo.json`**
+  * **Descripción Narrativa y Formativa:** Catálogo Estructurado de Enlaces Laborales. Base de datos ligera que clasifica portales de empleo, redes de networking y nodos especializados en salud y divulgación.
+
+### 7. Departamento 6: Asistente Diagnóstico & Motor "Kakarota" AI Node
+* **`departamento6-asistente-ia.html`**
+  * **Descripción Narrativa y Formativa:** Laboratorio de Inteligencia Aplicada y Guía Interactiva. Nodo cognitivo concebido para orientar en tiempo real al usuario mediante un sistema experto de toma de decisiones.
+* **`js/kakarota-engine.js`**
+  * **Descripción Narrativa y Formativa:** Motor Lógico de Árboles de Decisión. Script encargado de procesar las consultas del usuario, evaluar reglas de diagnóstico y renderizar respuestas de asesoría experta.
+* **`data/diagnostico-reglas.json`**
+  * **Descripción Narrativa y Formativa:** Base de Reglas y Árboles de Diagnóstico. Archivo estructurado que almacena las cuestiones clave y recomendaciones automatizadas para navegar por los seis departamentos del ecosistema.
 ---
 *Desarrollado en el marco del Proyecto DigiThinkingers | Autor: JuanDaniel Blázquez Antón (Dentrix)*

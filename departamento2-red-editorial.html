@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Departamento 2: Red Editorial & Simbiosis "Amigos Web" | JuanDaniel Blázquez Antón</title>
+
+<meta name="description" content="Módulo de gestión de enlaces cooperativos, competencia constructiva, directorios y publicación editorial automatizada.">
+
+<meta name="author" content="JuanDaniel Blázquez Antón">
+
+<meta name="robots" content="index,follow">
+
+<meta name="theme-color" content="#0E5EB8">
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="manifest.json">
+
+<style>
+
+:root {
+    --azul: #0E5EB8;
+    --azul-hover: #0b4992;
+    --azul-claro: #EAF4FF;
+    --gris: #4B5563;
+    --blanco: #FFFFFF;
+    --plata: #E9EDF3;
+    --max: 1400px;
+    --bg-body: #f8fafc;
+    --bg-card: #FFFFFF;
+    --text-main: #1f2937;
+    --text-muted: #4B5563;
+    --border-color: #dbe4f0;
+    --shadow: 0 15px 40px rgba(0,0,0,.08);
+}
+
+[data-theme="dark"] {
+    --azul: #3b82f6;
+    --azul-hover: #60a5fa;
+    --azul-claro: #1e293b;
+    --gris: #94a3b8;
+    --blanco: #0f172a;
+    --plata: #1e293b;
+    --bg-body: #090d16;
+    --bg-card: #111827;
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+    --border-color: #1f2937;
+    --shadow: 0 15px 40px rgba(0,0,0,.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Segoe UI, Tahoma, sans-serif;
+    background: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.7;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.container {
+    width: min(95%, var(--max));
+    margin: auto;
+}
+
+header {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 300;
+    backdrop-filter: blur(8px);
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+}
+
+.logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--azul);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+}
+
+nav ul {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+nav a:hover {
+    color: var(--azul);
+}
+
+.theme-toggle {
+    background: var(--azul-claro);
+    border: 1px solid var(--border-color);
+    color: var(--azul);
+    padding: 8px 14px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.theme-toggle:hover {
+    background: var(--azul);
+    color: var(--blanco);
+}
+
+.section {
+    padding: 60px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title h1 {
+    color: var(--azul);
+    margin-bottom: 10px;
+    font-size: 2.2rem;
+}
+
+.section-title p {
+    color: var(--text-muted);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.card-panel {
+    background: var(--bg-card);
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    margin-bottom: 40px;
+}
+
+.card-panel h2, .card-panel h3 {
+    color: var(--azul);
+    margin-bottom: 15px;
+}
+
+.card-panel p {
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+.grid-plan {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.plan-box {
+    background: var(--bg-body);
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 4px solid var(--azul);
+    border-top: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.plan-box h4 {
+    color: var(--text-main);
+    margin-bottom: 10px;
+}
+
+.app-container {
+    background: var(--azul-claro);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    margin-top: 20px;
+}
+
+footer {
+    background: #0b305e;
+    color: white;
+    margin-top: 80px;
+    border-top: 3px solid var(--azul);
+}
+
+[data-theme="dark"] footer {
+    background: #070d18;
+}
+
+.footer-inner {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    list-style: none;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: #93c5fd;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+</style>
+
+<!-- Metadatos de Redes Sociales -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Departamento 2: Red Editorial & Simbiosis | Dentrix">
+<meta property="og:description" content="Sistema de intercambio de enlaces cooperativos y red de Amigos Web.">
+<meta property="og:url" content="https://dentrix1001-tech.github.io/Proyecto-DigiThinkingers-.-/departamento2-red-editorial.html">
+
+</head>
+
+<body>
+
+<header>
+<div class="container nav">
+
+<a href="index.html" class="logo">
+← Portal Profesional
+</a>
+
+<nav>
+<ul>
+<li><a href="index.html">Inicio</a></li>
+<li><a href="#narrativa">Fundamentos</a></li>
+<li><a href="#plan">Plan Estratégico</a></li>
+<li><a href="#aplicacion">Prototipo Operativo</a></li>
+<li>
+<button class="theme-toggle" id="themeToggleBtn" aria-label="Cambiar modo oscuro/claro">
+🌓 <span id="themeText">Modo Oscuro</span>
+</button>
+</li>
+</ul>
+</nav>
+
+</div>
+</header>
+
+<section class="section">
+<div class="container">
+
+<div class="section-title">
+<h1>Departamento 2: Red Editorial & Simbiosis "Amigos Web"</h1>
+<p>Evolución de los modelos cooperativos clásicos de intercambio hacia una red de autoridad mutua y competencia constructiva.</p>
+</div>
+
+<!-- BLOQUE 1: NARRATIVA EDUCATIVA Y FORMATIVA -->
+<div class="card-panel" id="narrativa">
+<h2>1. Marco Pedagógico y Fundamentos de la Red Editorial</h2>
+<p>
+Inspirado en las bases de los antiguos directorios automatizados como <em>Active LinkExchange</em>, este departamento redefine el concepto de colaboración en internet. En lugar de competir de forma aislada, el proyecto fomenta un ecosistema de <strong>simbiosis digital y competencia constructiva</strong> con portales afines como <strong>SaludConNutricion.com</strong>.
+</p>
+<p>
+La cohesión editorial permite multiplicar la visibilidad orgánica, compartir recursos técnicos contrastados y certificar la autenticidad y calidad de los contenidos mediante redes de referencia mutua transparentes.
+</p>
+</div>
+
+<!-- BLOQUE 2: PLAN DE TRABAJO A MEDIO Y LARGO PLAZO -->
+<div class="card-panel" id="plan">
+<h2>2. Plan Estratégico de Desarrollo (Medio y Largo Plazo)</h2>
+<p>Hoja de ruta programada para la expansión de la red de aliados:</p>
+
+<div class="grid-plan">
+
+<div class="plan-box">
+<h4>🎯 Metas a Medio Plazo</h4>
+<p>• Consolidación del directorio interactivo de "Amigos Web" con segmentación por categorías temáticas y técnicas.</p>
+<p>• Verificación automatizada de enlaces de retorno y estado de disponibilidad de los portales aliados.</p>
+<p>• Estandarización de distintivos visuales y banners incrustables.</p>
+</div>
+
+<div class="plan-box">
+<h4>🚀 Metas a Largo Plazo</h4>
+<p>• Creación de un widget de distribución de contenidos en código abierto para sindicación automática entre socios de la red.</p>
+<p>• Sistema descentralizado de métricas de autoridad compartida basado en metadatos y confianza mutua.</p>
+<p>• Expansión del nodo editorial hacia centros de divulgación científica y tecnológica internacionales.</p>
+</div>
+
+</div>
+</div>
+
+<!-- BLOQUE 3: APLICACIÓN OPERATIVA PROTOTIPO 100% FUNCIONAL -->
+<div class="card-panel" id="aplicacion">
+<h2>3. Aplicación Real Operativa: Directorio y Generador de Enlaces Cooperativos</h2>
+<p>Herramienta interactiva para consultar el estado de la red y generar códigos de inserción listos para la colaboración entre proyectos.</p>
+
+<div class="app-container">
+<h4 style="color: var(--azul); margin-bottom: 12px;">Directorio Activo de Aliados (Sincronizado vía JSON)</h4>
+<div id="directorioAliadosLista" style="margin-bottom: 25px;">
+<!-- Cargado dinámicamente por js/red-editorial.js -->
+</div>
+
+<h4 style="color: var(--azul); margin-bottom: 12px;">Generador de Código de Enlace para Colaboradores</h4>
+<div style="margin-bottom: 15px;">
+<label for="tipoWidget" style="display: block; margin-bottom: 6px; font-weight: 600; color: var(--text-main);">Seleccionar Formato de Distintivo:</label>
+<select id="tipoWidget" style="width: 100%; max-width: 400px; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main);">
+  <option value="texto">Enlace de Texto Estándar (SaludConNutricion)</option>
+  <option value="banner">Distintivo Visual Gráfico (DigiThinkingers)</option>
+  <option value="script">Script de Sindicación (Avanzado)</option>
+</select>
+</div>
+
+<label for="widgetCodeOutput" style="display: block; margin-bottom: 6px; font-weight: 600; color: var(--text-main);">Código HTML Generado:</label>
+<textarea id="widgetCodeOutput" readonly rows="3" style="width: 100%; padding: 12px; font-family: monospace; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main);"></textarea>
+</div>
+
+</div>
+
+</div>
+</section>
+
+<footer>
+<div class="footer-inner">
+<h3>Tecnología • Investigación • Innovación</h3>
+<p>Departamento 2 - Proyecto DigiThinkingers | Enlazado a SaludConNutricion.com</p>
+<ul class="footer-links">
+<li><a href="index.html">Volver a la Portada Principal</a></li>
+<li><a href="departamento1-valorador.html">Ir al Departamento 1 (Valorador)</a></li>
+<li><a href="https://github.com/dentrix1001-tech" target="_blank" rel="noopener">GitHub Repositorios</a></li>
+</ul>
+</div>
+</footer>
+
+<!-- Carga de scripts -->
+<script src="js/red-editorial.js"></script>
+
+<script>
+// Manejo del Modo Oscuro/Claro
+const themeToggleBtn = document.getElementById('themeToggleBtn');
+const themeText = document.getElementById('themeText');
+const htmlElement = document.documentElement;
+
+const savedTheme = localStorage.getItem('theme') || 'light';
+if (savedTheme === 'dark') {
+    htmlElement.setAttribute('data-theme', 'dark');
+    themeText.textContent = 'Modo Claro';
+}
+
+themeToggleBtn.addEventListener('click', () => {
+    if (htmlElement.getAttribute('data-theme') === 'dark') {
+        htmlElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeText.textContent = 'Modo Oscuro';
+    } else {
+        htmlElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeText.textContent = 'Modo Claro';
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "version": "1.0.0",
+  "departamento": "Red Editorial y Simbiosis Amigos Web",
+  "aliados": [
+    {
+      "id": "saludconnutricion",
+      "nombre": "Salud Con Nutricion",
+      "url": "https://www.saludconnutricion.com",
+      "categoria": "Salud, Nutrición y Divulgación",
+      "tipo": "Nodo Principal"
+    },
+    {
+      "id": "digitheinkers",
+      "nombre": "Proyecto DigiThinkingers",
+      "url": "https://dentrix1001-tech.github.io/Proyecto-DigiThinkingers-.-/",
+      "categoria": "Innovación y Tecnología Abierta",
+      "tipo": "Repositorio Central"
+    },
+    {
+      "id": "redcolaborativa",
+      "nombre": "Directorio de Competencia Constructiva",
+      "url": "#",
+      "categoria": "Sistemas de Enlaces y Recursos",
+      "tipo": "Aliado Estratégico"
+    }
+  ]
+}

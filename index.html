@@ -546,6 +546,90 @@ La iniciativa se articula en estrecha sinergia con plataformas de desarrollo tec
 </div>
 </footer>
 
+    <!-- ========================================================================== -->
+<!-- COLOFÓN INSTITUCIONAL AVANZADO - PROYECTO DIGITHINKERS & SALUD CON NUTRICIÓN -->
+<!-- ========================================================================== -->
+<footer style="background: var(--bg-card); border-top: 1px solid var(--border-color); padding: 40px 20px; margin-top: 60px; font-family: Segoe UI, Tahoma, sans-serif;">
+  <div class="container" style="max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px;">
+    
+    <!-- Fila Superior: Widgets Interactivos (Reloj/IP & Traductor) -->
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding-bottom: 25px; border-bottom: 1px solid var(--border-color);">
+      
+      <!-- Mini Recurso 1: Sincronización Temporal y de Red (Fecha, Hora y Ubicación/IP) -->
+      <div id="recursoTelemetryWidget" style="display: flex; align-items: center; gap: 15px; background: var(--azul-claro); padding: 12px 20px; border-radius: 12px; border: 1px solid var(--border-color); font-size: 0.9rem; color: var(--text-main);">
+        <span style="font-size: 1.2rem;">🌐</span>
+        <div>
+          <strong style="color: var(--azul);">Telemetry Node:</strong> 
+          <span id="telemetryDataText" style="color: var(--text-muted);">Sincronizando red y hora local...</span>
+        </div>
+      </div>
+
+      <!-- Mini Recurso 2: Traductor Profesional Multilingüe (Google Compatible / Universal) -->
+      <div style="display: flex; align-items: center; gap: 10px; background: var(--azul-claro); padding: 10px 16px; border-radius: 12px; border: 1px solid var(--border-color);">
+        <span style="font-size: 1.1rem;" title="Selector de Idioma Institucional">🌍</span>
+        <div id="google_translate_element" style="display: inline-block;"></div>
+      </div>
+
+    </div>
+
+    <!-- Fila Inferior: Créditos del Autor y Colofón del Ecosistema -->
+    <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+      <p style="margin-bottom: 6px;"><strong>Ecosistema Tecnológico DigiThinkingers</strong> • Desarrollado bajo estándares de código abierto, accesibilidad PWA y diseño modular.</p>
+      <p>Diseñado y estructurado con rigor artesanal por <strong>JuanDaniel Blázquez Antón (Dentrix)</strong> | Altza, Donostia - San Sebastián.</p>
+    </div>
+
+  </div>
+</footer>
+
+<!-- ========================================================================== -->
+<!-- SCRIPTS DE FUNCIONALIDAD PARA LOS MINI RECURSOS                          -->
+<!-- ========================================================================== -->
+<script>
+// 1. Script para el Mini Recurso de Fecha, Hora y Geolocalización/IP
+document.addEventListener('DOMContentLoaded', () => {
+  actualizarRelojYRed();
+  setInterval(actualizarRelojYRed, 1000);
+});
+
+async function actualizarRelojYRed() {
+  const elementoTelemetry = document.getElementById('telemetryDataText');
+  if (!elementoTelemetry) return;
+
+  const ahora = new Date();
+  const opcionesFecha = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  const fechaStr = ahora.toLocaleDateString('es-ES', opcionesFecha);
+  const horaStr = ahora.toLocaleTimeString('es-ES');
+
+  // Intentamos obtener la IP y la ubicación de forma ligera y no bloqueante
+  let infoRed = "Donostia-San Sebastián (Nodo Local)";
+  try {
+    // Si ya tenemos cacheada la IP en la sesión la reutilizamos para agilizar
+    if (!window.cachedIPInfo) {
+      const res = await fetch('https://ipapi.co/json/');
+      const data = await res.json();
+      window.cachedIPInfo = `${data.city || 'Ubicación Desconocida'}, ${data.country_code || 'ES'} (IP: ${data.ip || 'Protegida'})`;
+    }
+    infoRed = window.cachedIPInfo;
+  } catch (e) {
+    infoRed = "Donostia-San Sebastián / Red Segura";
+  }
+
+  elementoTelemetry.innerHTML = `${fechaStr} - ${horaStr} | <span style="color: var(--azul); font-weight: 600;">${infoRed}</span>`;
+}
+
+// 2. Script para el Traductor Oficial Integrado (Google Translate Element)
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'es',
+    includedLanguages: 'es,eu,en,fr,de,it,pt,zh-CN,ja',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<!-- Script Asíncrono del Traductor Universal de Google -->
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+
 <script>
 // Script para el funcionamiento interactivo del Modo Oscuro/Claro
 const themeToggleBtn = document.getElementById('themeToggleBtn');

@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "departamento": "Arquitectura Web y Evolución Futura",
+  "especificaciones": [
+    {
+      "id": "pwa_manifest",
+      "nombre": "Progressive Web App (PWA)",
+      "estado": "Operativo",
+      "descripcion": "Capacidad de instalación en dispositivos, manifest.json y soporte de ejecución independiente."
+    },
+    {
+      "id": "modo_dual",
+      "nombre": "Interfaces Adaptativas Modo Dual",
+      "estado": "Operativo",
+      "descripcion": "Gestión dinámica de esquemas de color (Claro/Oscuro) con persistencia local en localStorage."
+    },
+    {
+      "id": "wcag_standard",
+      "nombre": "Accesibilidad Universal WCAG 2.1 AA",
+      "estado": "En Evolución",
+      "descripcion": "Contraste optimizado, navegación por teclado y legibilidad tipográfica adaptada."
+    }
+  ]
+}

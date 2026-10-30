@@ -59,5 +59,21 @@ A continuación se detalla el **Índice Documental y Formativo** que describe el
   * **Descripción Narrativa y Formativa:** Motor Lógico de Árboles de Decisión. Script encargado de procesar las consultas del usuario, evaluar reglas de diagnóstico y renderizar respuestas de asesoría experta.
 * **`data/diagnostico-reglas.json`**
   * **Descripción Narrativa y Formativa:** Base de Reglas y Árboles de Diagnóstico. Archivo estructurado que almacena las cuestiones clave y recomendaciones automatizadas para navegar por los seis departamentos del ecosistema.
+
+  ## 7. Módulo de Telemetría en Tiempo Real e Internacionalización (Colofón Institucional)
+
+Como culminación del estándar de accesibilidad, transparencia y diseño modular del Ecosistema Tecnológico *DigiThinkingers*, la arquitectura incorpora en su pie de página un sistema dual de mini recursos interactivos de alta precisión:
+
+### 7.1. Sincronización Temporal y de Telemetría de Red
+* **Propósito:** Ofrecer trazabilidad instantánea y control de sesiones mediante la visualización continua de la fecha, la hora local en tiempo real y la identificación geográfica/IP del nodo de procedencia de la visita.
+* **Implementación técnica:** Desarrollado mediante JavaScript asíncrono no bloqueante (`async/await`) integrado con APIs de red ligeras y caché de sesión (`window.cachedIPInfo`), garantizando un impacto cero sobre el rendimiento y la velocidad de carga (*Core Web Vitals*).
+
+### 7.2. Interfaz de Traducción Universal Multilingüe
+* **Propósito:** Romper barreras lingüísticas permitiendo a cualquier usuario visualizar los contenidos en su lengua nativa sin alterar la estructura semántica ni el diseño responsivo del portal.
+* **Idiomas soportados:** Castellano (`es`), Euskera (`eu`), Inglés (`en`), Francés (`fr`), Alemán (`de`), Italiano (`it`), Portugués (`pt`), Chino (`zh-CN`) y Japonés (`ja`).
+* **Estándar de compatibilidad:** Basado en el widget universal de traducción compatible de manera nativa con todos los navegadores web modernos (Chrome, Firefox, Safari, Edge).
+
+---
+*Documentación técnica estructurada y mantenida por **JuanDaniel Blázquez Antón (Dentrix)** | Altza, Donostia - San Sebastián.*
 ---
 *Desarrollado en el marco del Proyecto DigiThinkingers | Autor: JuanDaniel Blázquez Antón (Dentrix)*

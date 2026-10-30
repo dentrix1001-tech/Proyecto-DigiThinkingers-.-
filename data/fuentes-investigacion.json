@@ -1,0 +1,27 @@
+{
+  "version": "1.0.0",
+  "departamento": "Hub de Datos Abiertos e Investigación",
+  "fuentes": [
+    {
+      "id": "wikidata_api",
+      "nombre": "Wikidata Knowledge Graph API",
+      "url": "https://www.wikidata.org",
+      "ambito": "Conocimiento Estructurado Global",
+      "tipo": "API REST en Vivo"
+    },
+    {
+      "id": "opendata_gob",
+      "nombre": "Portales de Datos Abiertos Gubernamentales",
+      "url": "https://datos.gob.es",
+      "ambito": "Estadísticas e Información Pública",
+      "tipo": "Repositorio Institucional"
+    },
+    {
+      "id": "salud_repositorio",
+      "nombre": "SaludConNutricion Research Data",
+      "url": "https://www.saludconnutricion.com",
+      "ambito": "Nutrición, Salud y Empleo",
+      "tipo": "Nodo Propietario Sincronizado"
+    }
+  ]
+}

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Departamento 3: Hub de Datos Abiertos & Investigación | JuanDaniel Blázquez Antón</title>
+
+<meta name="description" content="Módulo de interconexión con repositorios académicos, portales de Open Data y fuentes de conocimiento libre.">
+
+<meta name="author" content="JuanDaniel Blázquez Antón">
+
+<meta name="robots" content="index,follow">
+
+<meta name="theme-color" content="#0E5EB8">
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="manifest.json">
+
+<style>
+
+:root {
+    --azul: #0E5EB8;
+    --azul-hover: #0b4992;
+    --azul-claro: #EAF4FF;
+    --gris: #4B5563;
+    --blanco: #FFFFFF;
+    --plata: #E9EDF3;
+    --max: 1400px;
+    --bg-body: #f8fafc;
+    --bg-card: #FFFFFF;
+    --text-main: #1f2937;
+    --text-muted: #4B5563;
+    --border-color: #dbe4f0;
+    --shadow: 0 15px 40px rgba(0,0,0,.08);
+}
+
+[data-theme="dark"] {
+    --azul: #3b82f6;
+    --azul-hover: #60a5fa;
+    --azul-claro: #1e293b;
+    --gris: #94a3b8;
+    --blanco: #0f172a;
+    --plata: #1e293b;
+    --bg-body: #090d16;
+    --bg-card: #111827;
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+    --border-color: #1f2937;
+    --shadow: 0 15px 40px rgba(0,0,0,.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Segoe UI, Tahoma, sans-serif;
+    background: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.7;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.container {
+    width: min(95%, var(--max));
+    margin: auto;
+}
+
+header {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 300;
+    backdrop-filter: blur(8px);
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+}
+
+.logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--azul);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+}
+
+nav ul {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+nav a:hover {
+    color: var(--azul);
+}
+
+.theme-toggle {
+    background: var(--azul-claro);
+    border: 1px solid var(--border-color);
+    color: var(--azul);
+    padding: 8px 14px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.theme-toggle:hover {
+    background: var(--azul);
+    color: var(--blanco);
+}
+
+.section {
+    padding: 60px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title h1 {
+    color: var(--azul);
+    margin-bottom: 10px;
+    font-size: 2.2rem;
+}
+
+.section-title p {
+    color: var(--text-muted);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.card-panel {
+    background: var(--bg-card);
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    margin-bottom: 40px;
+}
+
+.card-panel h2, .card-panel h3 {
+    color: var(--azul);
+    margin-bottom: 15px;
+}
+
+.card-panel p {
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+.grid-plan {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.plan-box {
+    background: var(--bg-body);
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 4px solid var(--azul);
+    border-top: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.plan-box h4 {
+    color: var(--text-main);
+    margin-bottom: 10px;
+}
+
+.app-container {
+    background: var(--azul-claro);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    margin-top: 20px;
+}
+
+.input-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.input-group input {
+    flex: 1;
+    min-width: 280px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-main);
+    font-size: 1rem;
+}
+
+.input-group button {
+    padding: 12px 24px;
+    background: var(--azul);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.input-group button:hover {
+    background: var(--azul-hover);
+}
+
+footer {
+    background: #0b305e;
+    color: white;
+    margin-top: 80px;
+    border-top: 3px solid var(--azul);
+}
+
+[data-theme="dark"] footer {
+    background: #070d18;
+}
+
+.footer-inner {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    list-style: none;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: #93c5fd;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+</style>
+
+<!-- Metadatos de Redes Sociales -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Departamento 3: Hub de Datos Abiertos | Dentrix">
+<meta property="og:description" content="Interconexión con repositorios científicos y fuentes de investigación Open Data.">
+<meta property="og:url" content="https://dentrix1001-tech.github.io/Proyecto-DigiThinkingers-.-/departamento3-hub-investigacion.html">
+
+</head>
+
+<body>
+
+<header>
+<div class="container nav">
+
+<a href="index.html" class="logo">
+← Portal Profesional
+</a>
+
+<nav>
+<ul>
+<li><a href="index.html">Inicio</a></li>
+<li><a href="#narrativa">Fundamentos</a></li>
+<li><a href="#plan">Plan Estratégico</a></li>
+<li><a href="#aplicacion">Prototipo Operativo</a></li>
+<li>
+<button class="theme-toggle" id="themeToggleBtn" aria-label="Cambiar modo oscuro/claro">
+🌓 <span id="themeText">Modo Oscuro</span>
+</button>
+</li>
+</ul>
+</nav>
+
+</div>
+</header>
+
+<section class="section">
+<div class="container">
+
+<div class="section-title">
+<h1>Departamento 3: Hub de Datos Abiertos & Investigación</h1>
+<p>Arquitectura de consulta conectada a nodos universitarios, fuentes gubernamentales y repositorios globales de conocimiento libre.</p>
+</div>
+
+<!-- BLOQUE 1: NARRATIVA EDUCATIVA Y FORMATIVA -->
+<div class="card-panel" id="narrativa">
+<h2>1. Marco Pedagógico y Fundamentos del Open Data</h2>
+<p>
+El acceso universal al conocimiento es un pilar indispensable para el desarrollo tecnológico sostenible. Este departamento establece los protocolos de integración para conectar portales especializados como <strong>SaludConNutricion.com</strong> con bases de datos públicas, grafos de conocimiento estructurado y fuentes científicas verificadas.
+</p>
+<p>
+Mediante el uso de consultas asíncronas y estándares abiertos de intercambio, se fomenta una cultura de investigación basada en datos transparentes, trazables y libres de restricciones opacas.
+</p>
+</div>
+
+<!-- BLOQUE 2: PLAN DE TRABAJO A MEDIO Y LARGO PLAZO -->
+<div class="card-panel" id="plan">
+<h2>2. Plan Estratégico de Desarrollo (Medio y Largo Plazo)</h2>
+<p>Hoja de ruta para la evolución de las capacidades de investigación del sistema:</p>
+
+<div class="grid-plan">
+
+<div class="plan-box">
+<h4>🎯 Metas a Medio Plazo</h4>
+<p>• Integración de catálogos estructurados de fuentes científicas y portales gubernamentales de datos abiertos.</p>
+<p>• Implementación de motores de búsqueda interna basados en metadatos normalizados (JSON-LD).</p>
+<p>• Sincronización de repositorios de documentación técnica y formativa.</p>
+</div>
+
+<div class="plan-box">
+<h4>🚀 Metas a Largo Plazo</h4>
+<p>• Creación de un nodo federado de consulta cruzada entre múltiples bases de datos de nutrición y tecnología.</p>
+<p>• Automatización de resúmenes analíticos mediante inteligencia artificial aplicada a fuentes científicas abiertas.</p>
+<p>• Establecimiento de canales directos de interoperabilidad con bibliotecas universitarias.</p>
+</div>
+
+</div>
+</div>
+
+<!-- BLOQUE 3: APLICACIÓN OPERATIVA PROTOTIPO 100% FUNCIONAL -->
+<div class="card-panel" id="aplicacion">
+<h2>3. Aplicación Real Operativa: Buscador en Vivo de Datos Abiertos</h2>
+<p>Consulta directa en tiempo real con la API global de Wikidata para la recuperación de conceptos científicos, tecnológicos y de salud.</p>
+
+<div class="app-container">
+<h4 style="color: var(--azul); margin-bottom: 12px;">Fuentes Institucionales de Referencia</h4>
+<div id="listaFuentesInvestigacion" style="margin-bottom: 25px;">
+<!-- Cargado dinámicamente por js/hub-opendata.js -->
+</div>
+
+<label for="inputWikidataQuery" style="font-weight: bold; color: var(--text-main);">Término a Consultar en la Red Open Data:</label>
+<div class="input-group">
+<input type="text" id="inputWikidataQuery" placeholder="Ej: Nutrición, Inteligencia Artificial, Biología" value="Nutrición">
+<button id="btnConsultarWikidata">Consultar API Abierta</button>
+</div>
+
+<div id="resultadoWikidataContainer" style="display: none; margin-top: 25px; padding: 20px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border-color);">
+<!-- Contenido dinámico renderizado por js/hub-opendata.js -->
+</div>
+</div>
+
+</div>
+
+</div>
+</section>
+
+<footer>
+<div class="footer-inner">
+<h3>Tecnología • Investigación • Innovación</h3>
+<p>Departamento 3 - Proyecto DigiThinkingers | Enlazado a SaludConNutricion.com</p>
+<ul class="footer-links">
+<li><a href="index.html">Volver a la Portada Principal</a></li>
+<li><a href="departamento1-valorador.html">Depto. 1 (Valorador)</a></li>
+<li><a href="departamento2-red-editorial.html">Depto. 2 (Red Editorial)</a></li>
+<li><a href="https://github.com/dentrix1001-tech" target="_blank" rel="noopener">GitHub Repositorios</a></li>
+</ul>
+</div>
+</footer>
+
+<!-- Carga de scripts -->
+<script src="js/hub-opendata.js"></script>
+
+<script>
+// Manejo del Modo Oscuro/Claro
+const themeToggleBtn = document.getElementById('themeToggleBtn');
+const themeText = document.getElementById('themeText');
+const htmlElement = document.documentElement;
+
+const savedTheme = localStorage.getItem('theme') || 'light';
+if (savedTheme === 'dark') {
+    htmlElement.setAttribute('data-theme', 'dark');
+    themeText.textContent = 'Modo Claro';
+}
+
+themeToggleBtn.addEventListener('click', () => {
+    if (htmlElement.getAttribute('data-theme') === 'dark') {
+        htmlElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeText.textContent = 'Modo Oscuro';
+    } else {
+        htmlElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeText.textContent = 'Modo Claro';
+    }
+});
+</script>
+
+</body>
+</html>

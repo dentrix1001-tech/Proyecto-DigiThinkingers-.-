@@ -18,211 +18,352 @@
 
 <meta name="theme-color" content="#0E5EB8">
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="JuanDaniel Blázquez Antón">
-<meta property="og:description" content="Tecnología, conocimiento, investigación e innovación.">
-<meta property="og:image" content="img/brindis-conocimiento.webp">
+<!-- PWA Manifest -->
+<link rel="manifest" href="manifest.json">
 
 <style>
 
-:root{
-    --azul:#0E5EB8;
-    --azul-claro:#EAF4FF;
-    --gris:#4B5563;
-    --blanco:#FFFFFF;
-    --plata:#E9EDF3;
-    --max:1400px;
+:root {
+    --azul: #0E5EB8;
+    --azul-hover: #0b4992;
+    --azul-claro: #EAF4FF;
+    --gris: #4B5563;
+    --blanco: #FFFFFF;
+    --plata: #E9EDF3;
+    --max: 1400px;
+    --bg-body: #f8fafc;
+    --bg-card: #FFFFFF;
+    --text-main: #1f2937;
+    --text-muted: #4B5563;
+    --border-color: #dbe4f0;
+    --shadow: 0 15px 40px rgba(0,0,0,.08);
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+[data-theme="dark"] {
+    --azul: #3b82f6;
+    --azul-hover: #60a5fa;
+    --azul-claro: #1e293b;
+    --gris: #94a3b8;
+    --blanco: #0f172a;
+    --plata: #1e293b;
+    --bg-body: #090d16;
+    --bg-card: #111827;
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+    --border-color: #1f2937;
+    --shadow: 0 15px 40px rgba(0,0,0,.4);
 }
 
-html{
-    scroll-behavior:smooth;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-body{
-    font-family:Segoe UI,Tahoma,sans-serif;
-    background:#f8fafc;
-    color:#1f2937;
-    line-height:1.7;
+html {
+    scroll-behavior: smooth;
 }
 
-img{
-    max-width:100%;
-    display:block;
+body {
+    font-family: Segoe UI, Tahoma, sans-serif;
+    background: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.7;
 }
 
-.container{
-    width:min(95%, var(--max));
-    margin:auto;
+img {
+    max-width: 100%;
+    display: block;
 }
 
-header{
-    background:white;
-    border-bottom:1px solid #dbe4f0;
-    position:sticky;
-    top:0;
-    z-index:300;
+.container {
+    width: min(95%, var(--max));
+    margin: auto;
 }
 
-.nav{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:18px 0;
+header {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 300;
+    backdrop-filter: blur(8px);
 }
 
-.logo{
-    font-size:1.3rem;
-    font-weight:700;
-    color:var(--azul);
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
 }
 
-nav ul{
-    display:flex;
-    gap:25px;
-    list-style:none;
+.logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--azul);
+    letter-spacing: -0.5px;
 }
 
-nav a{
-    text-decoration:none;
-    color:#334155;
-    font-weight:600;
+nav ul {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+    align-items: center;
 }
 
-.hero{
-    padding:50px 0;
-    background:
-    linear-gradient(
-        180deg,
-        #ffffff,
-        #eef6ff
-    );
+nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.95rem;
 }
 
-.hero-card{
-    background:white;
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:0 15px 40px rgba(0,0,0,.08);
+nav a:hover {
+    color: var(--azul);
 }
 
-.hero-info{
-    padding:35px;
+/* Botón de Modo Oscuro */
+.theme-toggle {
+    background: var(--azul-claro);
+    border: 1px solid var(--border-color);
+    color: var(--azul);
+    padding: 8px 14px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
-.hero-info h1{
-    font-size:2.4rem;
-    margin-bottom:15px;
+.theme-toggle:hover {
+    background: var(--azul);
+    color: var(--blanco);
 }
 
-.hero-info p{
-    color:var(--gris);
-    max-width:900px;
+.hero {
+    padding: 50px 0;
+    background: linear-gradient(180deg, var(--bg-body), var(--azul-claro));
 }
 
-.section{
-    padding:70px 0;
+.hero-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
 }
 
-.section-title{
-    text-align:center;
-    margin-bottom:40px;
+.hero-info {
+    padding: 35px;
 }
 
-.section-title h2{
-    color:var(--azul);
-    margin-bottom:10px;
+.hero-info h1 {
+    font-size: 2.4rem;
+    margin-bottom: 15px;
+    color: var(--text-main);
 }
 
-.placeholder{
-    background:white;
-    border:3px dashed #0E5EB8;
-    border-radius:20px;
-    padding:60px;
-    text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,.05);
+.hero-info p {
+    color: var(--text-muted);
+    max-width: 900px;
 }
 
-.placeholder h2{
-    margin-bottom:20px;
-    color:#0E5EB8;
+.section {
+    padding: 70px 0;
 }
 
-.placeholder p{
-    max-width:900px;
-    margin:auto;
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
 }
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:25px;
+.section-title h2 {
+    color: var(--azul);
+    margin-bottom: 10px;
+    font-size: 2rem;
 }
 
-.card{
-    background:white;
-    padding:30px;
-    border-radius:18px;
-    box-shadow:0 10px 25px rgba(0,0,0,.05);
+.section-title p {
+    color: var(--text-muted);
 }
 
-.card h3{
-    color:var(--azul);
-    margin-bottom:10px;
+.placeholder {
+    background: var(--bg-card);
+    border: 2px dashed var(--azul);
+    border-radius: 20px;
+    padding: 60px;
+    text-align: center;
+    box-shadow: var(--shadow);
 }
 
-.banner{
-    background:white;
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:0 15px 40px rgba(0,0,0,.08);
+.placeholder h2 {
+    margin-bottom: 20px;
+    color: var(--azul);
 }
 
-footer{
-    background:#0b305e;
-    color:white;
-    margin-top:80px;
+.placeholder p {
+    max-width: 900px;
+    margin: auto;
+    color: var(--text-muted);
 }
 
-.footer-inner{
-    padding:60px 20px;
-    text-align:center;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
 }
 
-.footer-inner h3{
-    margin-bottom:15px;
+.card {
+    background: var(--bg-card);
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
 }
 
-.footer-inner p{
-    opacity:.9;
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--azul);
 }
 
-.accessibility{
-    background:#edf6ff;
-    border-left:6px solid var(--azul);
-    padding:25px;
-    border-radius:10px;
+.card h3 {
+    color: var(--azul);
+    margin-bottom: 10px;
 }
 
-@media(max-width:768px){
+.card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
 
-    .hero-info h1{
-        font-size:1.8rem;
+.banner {
+    background: var(--bg-card);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+footer {
+    background: #0b305e;
+    color: white;
+    margin-top: 80px;
+    border-top: 3px solid var(--azul);
+}
+
+[data-theme="dark"] footer {
+    background: #070d18;
+}
+
+.footer-inner {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.footer-inner h3 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.footer-inner p {
+    opacity: .9;
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    list-style: none;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: #93c5fd;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.accessibility {
+    background: var(--azul-claro);
+    border-left: 6px solid var(--azul);
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    border-left-width: 6px;
+}
+
+.accessibility h2 {
+    color: var(--azul);
+    margin-bottom: 10px;
+}
+
+.accessibility p {
+    color: var(--text-muted);
+}
+
+@media(max-width: 768px) {
+    .hero-info h1 {
+        font-size: 1.8rem;
     }
-
-    nav ul{
-        display:none;
+    nav ul {
+        display: none;
     }
-
 }
 
 </style>
 
+<!-- Metadatos de Redes Sociales (Facebook y LinkedIn) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dentrix1001-tech.github.io/Proyecto-DigiThinkingers-.-/">
+<meta property="og:title" content="Proyecto DigiThinkingers | Dentrix">
+<meta property="og:description" content="Centro de innovación tecnológica y desarrollo digital vinculado a SaludconNutricion.com.">
+<meta property="og:image" content="https://dentrix1001-tech.github.io/Proyecto-DigiThinkingers-.-/GitHubPerfil-Copilot1001Socio.png">
+<meta property="og:site_name" content="DigiThinkingers - SaludconNutricion">
+<meta property="article:author" content="https://www.facebook.com/JuanDaniel.BlazquezAnton.Dentrix.Humanoide.Digital">
+
+<!-- Metadatos genéricos de compatibilidad visual -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Proyecto DigiThinkingers | Dentrix">
+<meta name="twitter:description" content="Centro de innovación tecnológica y desarrollo digital enlazado a SaludconNutricion.com.">
+<meta name="twitter:image" content="https://dentrix1001-tech.github.io/Proyecto-DigiThinkingers-.-/GitHubPerfil-Copilot1001Socio.png">
+
+<!-- Datos Estructurados Schema.org con Vinculación de Redes (sameAs) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Proyecto DigiThinkingers",
+  "description": "Repositorio y escaparate de innovación tecnológica y desarrollo web.",
+  "author": {
+    "@type": "Person",
+    "name": "JuanDaniel Blázquez Antón",
+    "alternateName": "Dentrix",
+    "sameAs": [
+      "https://www.saludconnutricion.com",
+      "https://www.linkedin.com/in/juandaniel-blazquez-anton-44152293k",
+      "https://www.facebook.com/JuanDaniel.BlazquezAnton.Dentrix.Humanoide.Digital"
+    ]
+  },
+  "url": "https://dentrix1001-tech.github.io/Proyecto-DigiThinkingers-.-/"
+}
+</script>
 </head>
 
 <body>
@@ -240,198 +381,126 @@ Portal Profesional
 <li><a href="#contenido">Contenido</a></li>
 <li><a href="#proyectos">Proyectos</a></li>
 <li><a href="#contacto">Contacto</a></li>
+<li>
+<button class="theme-toggle" id="themeToggleBtn" aria-label="Cambiar modo oscuro/claro">
+🌓 <span id="themeText">Modo Oscuro</span>
+</button>
+</li>
 </ul>
 </nav>
 
 </div>
 </header>
 
-
-
 <section class="hero" id="conocimiento">
-
 <div class="container">
-
 <div class="hero-card">
-
-<img
-src="GitHubPerfil2-Copilot1001Socia.png"
-alt="Brindis por el conocimiento, investigación, educación e innovación">
-
+<img src="GitHubPerfil2-Copilot1001Socia.png" alt="Brindis por el conocimiento, investigación, educación e innovación">
 <div class="hero-info">
-
-<h1>
-Brindis por el Conocimiento
-</h1>
-
-<p>
-
-Imagen principal destinada a representar la filosofía general del portal:
-aprendizaje continuo, investigación, educación, desarrollo tecnológico,
-colaboración internacional, sistemas de información y construcción de
-nuevas oportunidades.
-
-</p>
-
+<h1>Brindis por el Conocimiento</h1>
+<p>Imagen principal destinada a representar la filosofía general del portal: aprendizaje continuo, investigación, educación, desarrollo tecnológico, colaboración internacional, sistemas de información y construcción de nuevas oportunidades.</p>
 </div>
-
 </div>
-
 </div>
-
 </section>
 
-
-
 <section class="section">
-
 <div class="container">
-
 <div class="section-title">
 <h2>Zona Central de Contenido</h2>
-<p>Espacio reservado para futuras presentaciones.</p>
+<p>Espacio reservado para futuras presentaciones y marcos de trabajo avanzados.</p>
 </div>
-
 <div class="placeholder" id="contenido">
-
-<h2>
-ÁREA PRINCIPAL DE PRESENTACIÓN
-</h2>
-
-<p>
-
-Aquí se incorporarán posteriormente los textos de presentación,
-trayectoria, filosofía de trabajo, motivaciones, experiencia,
-proyectos tecnológicos, investigación, innovación, conocimiento
-abierto, desarrollo web, sistemas de información e iniciativas
-vinculadas al proyecto SaludConNutricion.com.
-
-</p>
-
+<h2>ÁREA PRINCIPAL DE PRESENTACIÓN</h2>
+<p>Aquí se incorporarán posteriormente los textos de presentación, trayectoria, filosofía de trabajo, motivaciones, experiencia, proyectos tecnológicos, investigación, innovación, conocimiento abierto, desarrollo web, sistemas de información e iniciativas vinculadas al proyecto SaludConNutricion.com.</p>
 <br>
-
-<p>
-
-Estructura preparada para crecimiento progresivo y ampliación
-institucional del contenido.
-
-</p>
-
+<p>Estructura preparada para crecimiento progresivo y ampliación institucional del contenido bajo estándares de investigación internacional.</p>
 </div>
-
 </div>
-
 </section>
 
-
-
 <section class="section">
-
 <div class="container">
-
 <div class="grid">
-
 <div class="card">
 <h3>Educación</h3>
-<p>Aprendizaje permanente, conocimiento compartido y capacitación continua.</p>
+<p>Aprendizaje permanente, conocimiento compartido y capacitación continua orientada a la excelencia.</p>
 </div>
-
 <div class="card">
 <h3>Investigación</h3>
-<p>Exploración de nuevas ideas, análisis y desarrollo de proyectos.</p>
+<p>Exploración sistemática de nuevas ideas, análisis crítico y desarrollo de soluciones tecnológicas.</p>
 </div>
-
 <div class="card">
 <h3>Tecnología</h3>
-<p>Sistemas web, inteligencia artificial, datos y comunicaciones.</p>
+<p>Sistemas web robustos, inteligencia artificial aplicada, gestión de datos y comunicaciones seguras.</p>
 </div>
-
 <div class="card">
 <h3>Innovación</h3>
-<p>Creación de soluciones y evolución constante de capacidades.</p>
+<p>Creación de herramientas disruptivas y evolución constante de capacidades digitales avanzadas.</p>
 </div>
-
 </div>
-
 </div>
-
 </section>
-
-
 
 <section class="section" id="proyectos">
-
 <div class="container">
-
 <div class="section-title">
-<h2>
-Construcción de Proyectos
-</h2>
-<p>
-Imagen complementaria orientada al trabajo tecnológico.
-</p>
+<h2>Construcción de Proyectos</h2>
+<p>Imagen complementaria orientada al despliegue técnico y desarrollo digital.</p>
 </div>
-
 <div class="banner">
-
-<img
-src="GitHub3Copilot1001Socia.png"
-alt="Desarrollo tecnológico, sistemas de información y proyectos digitales">
-
+<img src="GitHub3Copilot1001Socia.png" alt="Desarrollo tecnológico, sistemas de información y proyectos digitales">
 </div>
-
 </div>
-
 </section>
-
-
 
 <section class="section">
-
 <div class="container">
-
 <div class="accessibility">
-
-<h2>
-Declaración Inicial de Accesibilidad
-</h2>
-
-<p>
-
-Este portal se diseña siguiendo principios de accesibilidad,
-usabilidad, legibilidad, navegación intuitiva y compatibilidad
-multiplataforma, atendiendo a las recomendaciones WCAG 2.1 AA,
-buenas prácticas de desarrollo web y criterios de fácil visibilidad.
-
-</p>
-
+<h2>Declaración Inicial de Accesibilidad e Innovación</h2>
+<p>Este portal se diseña siguiendo rigurosos principios de accesibilidad, usabilidad, legibilidad, navegación intuitiva y compatibilidad multiplataforma, atendiendo a las recomendaciones WCAG 2.1 AA, mejores prácticas de desarrollo web y criterios de máxima visibilidad institucional.</p>
 </div>
-
 </div>
-
 </section>
 
-
-
 <footer id="contacto">
-
 <div class="footer-inner">
-
-<h3>
-Tecnología • Investigación • Innovación
-</h3>
-
-<p>
-
-Espacio preparado para incorporar enlaces profesionales,
-GitHub, plataformas tecnológicas, documentación técnica,
-proyectos y futuras iniciativas.
-
-</p>
-
+<h3>Tecnología • Investigación • Innovación</h3>
+<p>Espacio preparado para integrar accesos directos a redes profesionales, repositorios GitHub, plataformas tecnológicas, documentación técnica y proyectos de colaboración.</p>
+<ul class="footer-links">
+<li><a href="https://www.saludconnutricion.com" target="_blank" rel="noopener">SaludConNutricion.com</a></li>
+<li><a href="https://www.linkedin.com/in/juandaniel-blazquez-anton-44152293k" target="_blank" rel="noopener">LinkedIn Profesional</a></li>
+<li><a href="https://www.facebook.com/JuanDaniel.BlazquezAnton.Dentrix.Humanoide.Digital" target="_blank" rel="noopener">Comunidad Facebook</a></li>
+<li><a href="https://github.com/dentrix1001-tech" target="_blank" rel="noopener">GitHub Repositorios</a></li>
+</ul>
 </div>
-
 </footer>
+
+<script>
+// Script para el funcionamiento interactivo del Modo Oscuro/Claro
+const themeToggleBtn = document.getElementById('themeToggleBtn');
+const themeText = document.getElementById('themeText');
+const htmlElement = document.documentElement;
+
+// Comprobar preferencia guardada previamente
+const savedTheme = localStorage.getItem('theme') || 'light';
+if (savedTheme === 'dark') {
+    htmlElement.setAttribute('data-theme', 'dark');
+    themeText.textContent = 'Modo Claro';
+}
+
+themeToggleBtn.addEventListener('click', () => {
+    if (htmlElement.getAttribute('data-theme') === 'dark') {
+        htmlElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeText.textContent = 'Modo Oscuro';
+    } else {
+        htmlElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeText.textContent = 'Modo Claro';
+    }
+});
+</script>
 
 </body>
 </html>

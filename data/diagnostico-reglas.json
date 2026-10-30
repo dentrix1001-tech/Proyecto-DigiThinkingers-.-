@@ -1,0 +1,37 @@
+{
+  "_ficha_tecnica_recurso": {
+    "nombre_archivo": "diagnostico-reglas.json",
+    "autor": "JuanDaniel Blázquez Antón (Dentrix)",
+    "circunstancias_creacion": "Estructuración de árboles de decisión y reglas de diagnóstico automatizado.",
+    "proposito_educativo": "Alimentar el motor de asistencia interactiva (Kakarota) para la orientación técnica de los usuarios."
+  },
+  "version": "1.0.0",
+  "departamento": "Asistente Inteligente Kakarota",
+  "modulos_guia": [
+    {
+      "clave": "auditoria",
+      "pregunta": "¿Buscas optimizar el rendimiento técnico o SEO de tu web?",
+      "recomendacion": "Dirígete al Departamento 1 (Valorador de Potencialidades) para auditar tu URL en tiempo real."
+    },
+    {
+      "key": "comunidad",
+      "pregunta": "¿Quieres formar parte de la red de enlaces y simbiosis editorial?",
+      "recomendacion": "Visita el Departamento 2 (Red Editorial & Amigos Web) para obtener tu widget de colaboración."
+    },
+    {
+      "key": "investigacion",
+      "pregunta": "¿Necesitas consultar fuentes científicas u Open Data?",
+      "recomendacion": "Accede al Departamento 3 (Hub de Datos Abiertos) para realizar consultas directas en Wikidata."
+    },
+    {
+      "key": "arquitectura",
+      "pregunta": "¿Deseas verificar el rendimiento PWA y el entorno de tu navegador?",
+      "recomendacion": "Entra en el Departamento 4 (Arquitectura PWA) para ejecutar un diagnóstico de cliente."
+    },
+    {
+      "key": "empleo",
+      "pregunta": "¿Buscas oportunidades laborales o agregación de talento profesional?",
+      "recomendacion": "Explora el Departamento 5 (Sindicador de Empleo & Talento) para cruzar tu perfil."
+    }
+  ]
+}

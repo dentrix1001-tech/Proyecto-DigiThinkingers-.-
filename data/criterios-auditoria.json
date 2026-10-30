@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "departamento": "Valorador de Potencialidades y Auditoría Web",
+  "metricas": [
+    {
+      "id": "https_check",
+      "nombre": "Cifrado SSL / HTTPS",
+      "peso": 25,
+      "descripcion": "Garantiza la privacidad, cifrado de datos y transmisión segura bajo protocolos estándar."
+    },
+    {
+      "id": "schema_org",
+      "nombre": "Marcado Semántico Schema.org",
+      "peso": 25,
+      "descripcion": "Estructuración de datos para indexación avanzada en motores de búsqueda e Inteligencia Artificial."
+    },
+    {
+      "id": "open_graph",
+      "nombre": "Etiquetas Open Graph y Twitter Cards",
+      "peso": 25,
+      "descripcion": "Optimización para presentación visual enriquecida en redes sociales (LinkedIn, Facebook)."
+    },
+    {
+      "id": "accessibility_wcag",
+      "nombre": "Accesibilidad WCAG 2.1 AA",
+      "peso": 25,
+      "descripcion": "Soporte para modos de alto contraste, etiquetado aria y compatibilidad con navegadores diversos."
+    }
+  ]
+}

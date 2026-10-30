@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Departamento 5: Sindicador de Empleo & Talento | JuanDaniel Blázquez Antón</title>
+<meta name="description" content="Módulo de agregación de oportunidades laborales, directorios profesionales y vinculación de credenciales.">
+<meta name="author" content="JuanDaniel Blázquez Antón">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0E5EB8">
+<link rel="manifest" href="manifest.json">
+<style>
+:root {
+    --azul: #0E5EB8; --azul-hover: #0b4992; --azul-claro: #EAF4FF; --gris: #4B5563;
+    --blanco: #FFFFFF; --plata: #E9EDF3; --max: 1400px; --bg-body: #f8fafc;
+    --bg-card: #FFFFFF; --text-main: #1f2937; --text-muted: #4B5563; --border-color: #dbe4f0; --shadow: 0 15px 40px rgba(0,0,0,.08);
+}
+[data-theme="dark"] {
+    --azul: #3b82f6; --azul-hover: #60a5fa; --azul-claro: #1e293b; --gris: #94a3b8;
+    --blanco: #0f172a; --plata: #1e293b; --bg-body: #090d16; --bg-card: #111827;
+    --text-main: #f3f4f6; --text-muted: #9ca3af; --border-color: #1f2937; --shadow: 0 15px 40px rgba(0,0,0,.4);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+html { scroll-behavior: smooth; }
+body { font-family: Segoe UI, Tahoma, sans-serif; background: var(--bg-body); color: var(--text-main); line-height: 1.7; }
+.container { width: min(95%, var(--max)); margin: auto; }
+header { background: var(--bg-card); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 300; backdrop-filter: blur(8px); }
+.nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+.logo { font-size: 1.3rem; font-weight: 700; color: var(--azul); text-decoration: none; }
+nav ul { display: flex; gap: 25px; list-style: none; align-items: center; }
+nav a { text-decoration: none; color: var(--text-muted); font-weight: 600; font-size: 0.95rem; }
+nav a:hover { color: var(--azul); }
+.theme-toggle { background: var(--azul-claro); border: 1px solid var(--border-color); color: var(--azul); padding: 8px 14px; border-radius: 30px; cursor: pointer; font-weight: 600; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
+.theme-toggle:hover { background: var(--azul); color: var(--blanco); }
+.section { padding: 60px 0; }
+.section-title { text-align: center; margin-bottom: 40px; }
+.section-title h1 { color: var(--azul); margin-bottom: 10px; font-size: 2.2rem; }
+.section-title p { color: var(--text-muted); max-width: 800px; margin: 0 auto; }
+.card-panel { background: var(--bg-card); padding: 35px; border-radius: 20px; box-shadow: var(--shadow); border: 1px solid var(--border-color); margin-bottom: 40px; }
+.card-panel h2, .card-panel h3 { color: var(--azul); margin-bottom: 15px; }
+.card-panel p { color: var(--text-muted); margin-bottom: 15px; }
+.grid-plan { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 25px; }
+.plan-box { background: var(--bg-body); padding: 25px; border-radius: 12px; border-left: 4px solid var(--azul); border: 1px solid var(--border-color); }
+.plan-box h4 { color: var(--text-main); margin-bottom: 10px; }
+.app-container { background: var(--azul-claro); padding: 30px; border-radius: 16px; border: 1px solid var(--border-color); margin-top: 20px; }
+.input-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 15px; }
+.input-group input { flex: 1; min-width: 280px; padding: 12px 18px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main); font-size: 1rem; }
+.input-group button { padding: 12px 24px; background: var(--azul); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; }
+.input-group button:hover { background: var(--azul-hover); }
+footer { background: #0b305e; color: white; margin-top: 80px; border-top: 3px solid var(--azul); }
+[data-theme="dark"] footer { background: #070d18; }
+.footer-inner { padding: 60px 20px; text-align: center; }
+.footer-links { display: flex; justify-content: center; gap: 20px; list-style: none; margin-top: 20px; flex-wrap: wrap; }
+.footer-links a { color: #93c5fd; text-decoration: none; font-weight: 600; }
+</style>
+</head>
+<body>
+<header>
+<div class="container nav">
+<a href="index.html" class="logo">← Portal Profesional</a>
+<nav>
+<ul>
+<li><a href="index.html">Inicio</a></li>
+<li><a href="#narrativa">Fundamentos</a></li>
+<li><a href="#plan">Plan Estratégico</a></li>
+<li><a href="#aplicacion">Prototipo Operativo</a></li>
+<li><button class="theme-toggle" id="themeToggleBtn" aria-label="Modo oscuro">🌓 <span id="themeText">Modo Oscuro</span></button></li>
+</ul>
+</nav>
+</div>
+</header>
+<section class="section">
+<div class="container">
+<div class="section-title">
+<h1>Departamento 5: Sindicador de Empleo & Talento</h1>
+<p>Conectando la formación digital, sanitaria y técnica con las oportunidades del mercado laboral y redes profesionales globales.</p>
+</div>
+<div class="card-panel" id="narrativa">
+<h2>1. Marco Pedagógico y Fundamentos del Talento Abierto</h2>
+<p>La empleabilidad y el emprendimiento son el fin último de cualquier ecosistema formativo. Este departamento estructura directorios especializados (Lanbide, InfoJobs, LinkedIn) vinculados a <strong>SaludConNutricion.com</strong>, facilitando la validación de perfiles profesionales y el acceso a ofertas del sector.</p>
+</div>
+<div class="card-panel" id="plan">
+<h2>2. Plan Estratégico de Desarrollo (Medio y Largo Plazo)</h2>
+<div class="grid-plan">
+<div class="plan-box">
+<h4>🎯 Metas a Medio Plazo</h4>
+<p>• Consolidación de directorios interactivos de empleo sectorial.<br>• Vinculación de carpetas públicas en la nube con credenciales verificables para reclutadores.</p>
+</div>
+<div class="plan-box">
+<h4>🚀 Metas a Largo Plazo</h4>
+<p>• Automatización de alertas de ofertas laborales mediante feeds sindicados.<br>• Creación de un panel de recomendación de competencias profesionales basado en IA.</p>
+</div>
+</div>
+</div>
+<div class="card-panel" id="aplicacion">
+<h2>3. Aplicación Real Operativa: Agregador y Simulador de Talento</h2>
+<div class="app-container">
+<h4 style="color: var(--azul); margin-bottom: 12px;">Portales de Empleo de Referencia</h4>
+<div id="listaPortalesEmpleo" style="margin-bottom: 25px;"></div>
+<label for="inputPerfilBusqueda" style="font-weight: bold; color: var(--text-main);">Filtrar por Competencia o Perfil:</label>
+<div class="input-group">
+<input type="text" id="inputPerfilBusqueda" placeholder="Ej: Desarrollador Web, Divulgador, Sanitario" value="Desarrollador Web Frontend">
+<button id="btnFiltrarTalento">Analizar Oportunidades</button>
+</div>
+<div id="resultadoTalentoContainer" style="display: none; margin-top: 25px; padding: 20px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border-color);"></div>
+</div>
+</div>
+</div>
+</section>
+<footer>
+<div class="footer-inner">
+<h3>Tecnología • Investigación • Innovación</h3>
+<p>Departamento 5 - Proyecto DigiThinkingers | Enlazado a SaludConNutricion.com</p>
+<ul class="footer-links">
+<li><a href="index.html">Volver a la Portada</a></li>
+<li><a href="DOCUMENTACION.md" target="_blank" rel="noopener">📖 Consultar Documentación</a></li>
+</ul>
+</div>
+</footer>
+<script src="js/talento-core.js"></script>
+<script>
+const btn = document.getElementById('themeToggleBtn'), txt = document.getElementById('themeText'), html = document.documentElement;
+if (localStorage.getItem('theme') === 'dark') { html.setAttribute('data-theme', 'dark'); txt.textContent = 'Modo Claro'; }
+btn.addEventListener('click', () => {
+    if (html.getAttribute('data-theme') === 'dark') { html.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); txt.textContent = 'Modo Oscuro'; }
+    else { html.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); txt.textContent = 'Modo Claro'; }
+});
+</script>
+</body>
+</html>

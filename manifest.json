@@ -1,0 +1,17 @@
+{
+  "name": "Proyecto DigiThinkingers",
+  "short_name": "DigiThinkingers",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#0E5EB8",
+  "description": "Portal profesional orientado a tecnología, investigación, educación e innovación.",
+  "icons": [
+    {
+      "src": "GitHubPerfil-Copilot1001Socio.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

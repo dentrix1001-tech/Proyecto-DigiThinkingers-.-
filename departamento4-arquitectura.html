@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Departamento 4: Arquitectura Web & Evolución PWA | JuanDaniel Blázquez Antón</title>
+
+<meta name="description" content="Módulo de desarrollo modular, Progressive Web Apps (PWA), interfaces adaptativas y transferencia de tecnología.">
+
+<meta name="author" content="JuanDaniel Blázquez Antón">
+
+<meta name="robots" content="index,follow">
+
+<meta name="theme-color" content="#0E5EB8">
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="manifest.json">
+
+<style>
+
+:root {
+    --azul: #0E5EB8;
+    --azul-hover: #0b4992;
+    --azul-claro: #EAF4FF;
+    --gris: #4B5563;
+    --blanco: #FFFFFF;
+    --plata: #E9EDF3;
+    --max: 1400px;
+    --bg-body: #f8fafc;
+    --bg-card: #FFFFFF;
+    --text-main: #1f2937;
+    --text-muted: #4B5563;
+    --border-color: #dbe4f0;
+    --shadow: 0 15px 40px rgba(0,0,0,.08);
+}
+
+[data-theme="dark"] {
+    --azul: #3b82f6;
+    --azul-hover: #60a5fa;
+    --azul-claro: #1e293b;
+    --gris: #94a3b8;
+    --blanco: #0f172a;
+    --plata: #1e293b;
+    --bg-body: #090d16;
+    --bg-card: #111827;
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+    --border-color: #1f2937;
+    --shadow: 0 15px 40px rgba(0,0,0,.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Segoe UI, Tahoma, sans-serif;
+    background: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.7;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.container {
+    width: min(95%, var(--max));
+    margin: auto;
+}
+
+header {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 300;
+    backdrop-filter: blur(8px);
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+}
+
+.logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--azul);
+    letter-spacing: -0.5px;
+    text-decoration: none;
+}
+
+nav ul {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+nav a:hover {
+    color: var(--azul);
+}
+
+.theme-toggle {
+    background: var(--azul-claro);
+    border: 1px solid var(--border-color);
+    color: var(--azul);
+    padding: 8px 14px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.theme-toggle:hover {
+    background: var(--azul);
+    color: var(--blanco);
+}
+
+.section {
+    padding: 60px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title h1 {
+    color: var(--azul);
+    margin-bottom: 10px;
+    font-size: 2.2rem;
+}
+
+.section-title p {
+    color: var(--text-muted);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.card-panel {
+    background: var(--bg-card);
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    margin-bottom: 40px;
+}
+
+.card-panel h2, .card-panel h3 {
+    color: var(--azul);
+    margin-bottom: 15px;
+}
+
+.card-panel p {
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+.grid-plan {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.plan-box {
+    background: var(--bg-body);
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 4px solid var(--azul);
+    border-top: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.plan-box h4 {
+    color: var(--text-main);
+    margin-bottom: 10px;
+}
+
+.app-container {
+    background: var(--azul-claro);
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    margin-top: 20px;
+}
+
+.input-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.input-group button {
+    padding: 12px 24px;
+    background: var(--azul);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.input-group button:hover {
+    background: var(--azul-hover);
+}
+
+footer {
+    background: #0b305e;
+    color: white;
+    margin-top: 80px;
+    border-top: 3px solid var(--azul);
+}
+
+[data-theme="dark"] footer {
+    background: #070d18;
+}
+
+.footer-inner {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    list-style: none;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    icon: none;
+    color: #93c5fd;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+</style>
+
+<!-- Metadatos de Redes Sociales -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Departamento 4: Arquitectura Web & PWA | Dentrix">
+<meta property="og:description" content="Desarrollo modular, Progressive Web Apps y evolución tecnológica.">
+<meta property="og:url" content="https://dentrix1001-tech.github.io/Proyecto-DigiThinkingers-.-/departamento4-arquitectura.html">
+
+</head>
+
+<body>
+
+<header>
+<div class="container nav">
+
+<a href="index.html" class="logo">
+← Portal Profesional
+</a>
+
+<nav>
+<ul>
+<li><a href="index.html">Inicio</a></li>
+<li><a href="#narrativa">Fundamentos</a></li>
+<li><a href="#plan">Plan Estratégico</a></li>
+<li><a href="#aplicacion">Prototipo Operativo</a></li>
+<li>
+<button class="theme-toggle" id="themeToggleBtn" aria-label="Cambiar modo oscuro/claro">
+🌓 <span id="themeText">Modo Oscuro</span>
+</button>
+</li>
+</ul>
+</nav>
+
+</div>
+</header>
+
+<section class="section">
+<div class="container">
+
+<div class="section-title">
+<h1>Departamento 4: Arquitectura Web & Evolución Futura</h1>
+<p>Diseño de sistemas modulares, Progressive Web Apps (PWA), interfaces adaptativas y optimización para el ecosistema digital avanzado.</p>
+</div>
+
+<!-- BLOQUE 1: NARRATIVA EDUCATIVA Y FORMATIVA -->
+<div class="card-panel" id="narrativa">
+<h2>1. Marco Pedagógico y Fundamentos de la Arquitectura Moderna</h2>
+<p>
+La ingeniería de software aplicada a la web contemporánea exige la creación de estructuras ligeras, resilientes y multiplataforma. Este departamento engloba la consolidación de tecnologías como las <strong>Progressive Web Apps (PWA)</strong>, el almacenamiento persistente en cliente y la adaptación visual dual (modo claro/oscuro).
+</p>
+<p>
+Vinculado directamente con proyectos de alto rendimiento como <strong>SaludConNutricion.com</strong>, este módulo garantiza que las herramientas desarrolladas mantengan una experiencia de usuario fluida, rápida y accesible desde cualquier dispositivo, sin depender exclusivamente de servidores externos.
+</p>
+</div>
+
+<!-- BLOQUE 2: PLAN DE TRABAJO A MEDIO Y LARGO PLAZO -->
+<div class="card-panel" id="plan">
+<h2>2. Plan Estratégico de Desarrollo (Medio y Largo Plazo)</h2>
+<p>Hoja de ruta para la evolución tecnológica de la infraestructura:</p>
+
+<div class="grid-plan">
+
+<div class="plan-box">
+<h4>🎯 Metas a Medio Plazo</h4>
+<p>• Optimización avanzada del archivo `manifest.json` y registro de Service Workers para soporte offline completo.</p>
+<p>• Refinamiento de estilos CSS modulares mediante variables `:root` para personalización dinámica.</p>
+<p>• Mejora de tiempos de carga inicial y compresión de recursos estáticos.</p>
+</div>
+
+<div class="plan-box">
+<h4>🚀 Metas a Largo Plazo</h4>
+<p>• Integración de capacidades de Inteligencia Artificial directamente en el navegador mediante WebAssembly.</p>
+<p>• Arquitectura descentralizada de componentes interactivos reutilizables en múltiples repositorios.</p>
+<p>• Escalabilidad multiplataforma hacia entornos de escritorio y móviles nativos.</p>
+</div>
+
+</div>
+</div>
+
+<!-- BLOQUE 3: APLICACIÓN OPERATIVA PROTOTIPO 100% FUNCIONAL -->
+<div class="card-panel" id="aplicacion">
+<h2>3. Aplicación Real Operativa: Diagnóstico de Entorno y Capacidades PWA</h2>
+<p>Herramienta técnica interactiva para verificar en tiempo real las especificaciones técnicas del navegador y el estado de la arquitectura web.</p>
+
+<div class="app-container">
+<h4 style="color: var(--azul); margin-bottom: 12px;">Especificaciones Base del Sistema (Cargadas via JSON)</h4>
+<div id="listaEspecificacionesSpecs" style="margin-bottom: 25px;">
+<!-- Cargado dinámicamente por js/arquitectura-core.js -->
+</div>
+
+<div class="input-group">
+<button id="btnEjecutarDiagnosticoPWA">Ejecutar Diagnóstico de Entorno PWA</button>
+</div>
+
+<div id="resultadoDiagnosticoContainer" style="display: none; margin-top: 25px; padding: 20px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border-color);">
+<!-- Contenido dinámico renderizado por js/arquitectura-core.js -->
+</div>
+</div>
+
+</div>
+
+</div>
+</section>
+
+<footer>
+<div class="footer-inner">
+<h3>Tecnología • Investigación • Innovación</h3>
+<p>Departamento 4 - Proyecto DigiThinkingers | Enlazado a SaludConNutricion.com</p>
+<ul class="footer-links">
+<li><a href="index.html">Volver a la Portada Principal</a></li>
+<li><a href="departamento1-valorador.html">Depto. 1</a></li>
+<li><a href="departamento2-red-editorial.html">Depto. 2</a></li>
+<li><a href="departamento3-hub-investigacion.html">Depto. 3</a></li>
+</ul>
+</div>
+</footer>
+
+<!-- Carga de scripts -->
+<script src="js/arquitectura-core.js"></script>
+
+<script>
+// Manejo del Modo Oscuro/Claro
+const themeToggleBtn = document.getElementById('themeToggleBtn');
+const themeText = document.getElementById('themeText');
+const htmlElement = document.documentElement;
+
+const savedTheme = localStorage.getItem('theme') || 'light';
+if (savedTheme === 'dark') {
+    htmlElement.setAttribute('data-theme', 'dark');
+    themeText.textContent = 'Modo Claro';
+}
+
+themeToggleBtn.addEventListener('click', () => {
+    if (htmlElement.getAttribute('data-theme') === 'dark') {
+        htmlElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeText.textContent = 'Modo Oscuro';
+    } else {
+        htmlElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeText.textContent = 'Modo Claro';
+    }
+});
+</script>
+
+</body>
+</html>

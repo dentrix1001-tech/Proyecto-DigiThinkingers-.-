@@ -1,0 +1,33 @@
+{
+  "_ficha_tecnica_recurso": {
+    "nombre_archivo": "portales-empleo.json",
+    "autor": "JuanDaniel Blázquez Antón (Dentrix)",
+    "circunstancias_creacion": "Estructuración de directorios de agregación laboral y profesional.",
+    "proposito_educativo": "Conectar la formación tecnológica y sanitaria con portales de empleo y redes de reclutamiento."
+  },
+  "version": "1.0.0",
+  "departamento": "Sindicador de Empleo y Talento",
+  "portales": [
+    {
+      "id": "lanbide_infojobs",
+      "nombre": "Lanbide & InfoJobs (Ecosistema Regional/Nacional)",
+      "url": "https://www.infojobs.net",
+      "sector": "Empleo General, Técnico y Administrativo",
+      "tipo": "Agregador Mayoritario"
+    },
+    {
+      "id": "linkedin_profesional",
+      "nombre": "LinkedIn Talent & Professional Network",
+      "url": "https://www.linkedin.com",
+      "sector": "Networking Global y Verificación de Credenciales",
+      "tipo": "Red Profesional de Reclutamiento"
+    },
+    {
+      "id": "salud_empleo",
+      "nombre": "Bolsas de Empleo en Salud y Nutrición",
+      "url": "https://www.saludconnutricion.com",
+      "sector": "Divulgación, Sanidad y Emprendimiento Digital",
+      "tipo": "Nodo Especializado Propio"
+    }
+  ]
+}

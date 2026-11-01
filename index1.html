@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>JuanDaniel Blázquez Antón | Tecnología • Investigación • Innovación</title>
+
+<meta name="description" content="Portal profesional orientado a tecnología, investigación, educación, innovación, desarrollo web, inteligencia artificial, sistemas de información y conocimiento abierto.">
+
+<meta name="keywords" content="tecnología, investigación, github, innovación, inteligencia artificial, programación, desarrollo web, educación digital">
+
+<meta name="author" content="JuanDaniel Blázquez Antón">
+
+<meta name="robots" content="index,follow">
+
+<meta name="theme-color" content="#0E5EB8">
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="manifest.json">
+
+<style>
+
+:root {
+    --azul: #0E5EB8;
+    --azul-hover: #0b4992;
+    --azul-claro: #EAF4FF;
+    --gris: #4B5563;
+    --blanco: #FFFFFF;
+    --plata: #E9EDF3;
+    --max: 1400px;
+    --bg-body: #f8fafc;
+    --bg-card: #FFFFFF;
+    --text-main: #1f2937;
+    --text-muted: #4B5563;
+    --border-color: #dbe4f0;
+    --shadow: 0 15px 40px rgba(0,0,0,.08);
+}
+
+[data-theme="dark"] {
+    --azul: #3b82f6;
+    --azul-hover: #60a5fa;
+    --azul-claro: #1e293b;
+    --gris: #94a3b8;
+    --blanco: #0f172a;
+    --plata: #1e293b;
+    --bg-body: #090d16;
+    --bg-card: #111827;
+    --text-main: #f3f4f6;
+    --text-muted: #9ca3af;
+    --border-color: #1f2937;
+    --shadow: 0 15px 40px rgba(0,0,0,.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Segoe UI, Tahoma, sans-serif;
+    background: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.7;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.container {
+    width: min(95%, var(--max));
+    margin: auto;
+}
+
+header {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 300;
+    backdrop-filter: blur(8px);
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+}
+
+.logo {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--azul);
+    letter-spacing: -0.5px;
+}
+
+nav ul {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+nav a:hover {
+    color: var(--azul);
+}
+
+/* Botón de Modo Oscuro */
+.theme-toggle {
+    background: var(--azul-claro);
+    border: 1px solid var(--border-color);
+    color: var(--azul);
+    padding: 8px 14px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.theme-toggle:hover {
+    background: var(--azul);
+    color: var(--blanco);
+}
+
+.hero {
+    padding: 50px 0;
+    background: linear-gradient(180deg, var(--bg-body), var(--azul-claro));
+}
+
+.hero-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+.hero-info {
+    padding: 35px;
+}
+
+.hero-info h1 {
+    font-size: 2.4rem;
+    margin-bottom: 15px;
+    color: var(--text-main);
+}
+
+.hero-info p {
+    color: var(--text-muted);
+    max-width: 900px;
+}
+
+.section {
+    padding: 70px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title h2 {
+    color: var(--azul);
+    margin-bottom: 10px;
+    font-size: 2rem;
+}
+
+.section-title p {
+    color: var(--text-muted);
+}
+
+.placeholder {
+    background: var(--bg-card);
+    border: 2px dashed var(--azul);
+    border-radius: 20px;
+    padding: 60px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.placeholder h2 {
+    margin-bottom: 20px;
+    color: var(--azul);
+}
+
+.placeholder p {
+    max-width: 900px;
+    margin: auto;
+    color: var(--text-muted);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: var(--bg-card);
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--azul);
+}
+
+.card h3 {
+    color: var(--azul);
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.banner {
+    background: var(--bg-card);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+footer {
+    background: #0b305e;
+    color: white;
+    margin-top: 80px;
+    border-top: 3px solid var(--azul);
+}
+
+[data-theme="dark"] footer {
+    background: #070d18;
+}
+
+.footer-inner {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.footer-inner h3 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.footer-inner p {
+    opacity: .9;
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    list-style: none;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: #93c5fd;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.accessibility {
+    background: var(--azul-claro);
+    border-left: 6px solid var(--azul);
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    border-left-width: 6px;
+}
+
+.accessibility h2 {
+    color: var(--azul);
+    margin-bottom: 10px;
+}
+
+.accessibility p {
+    color: var(--text-muted);
+}
+
+/* Estilos específicos para la consola y tarjetas Kakarota Siphon */
+.siphon-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #10b98120;
+    color: #10b981;
+    border: 1px solid #10b98140;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+}
+
+@media(max-width: 768px) {
+    .hero-info h1 {
+        font-size: 1.8rem;
+    }
+    nav ul {
+        display: none;
+    }
+}
+
+</style>
+
+<!-- Metadatos de Redes Sociales (Facebook y LinkedIn) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dentrix1001-tech.github.io/Proyecto-DigiThinkingers-.-/">
+<meta property="og:title" content="Proyecto DigiThinkingers | Dentrix">
+<meta property="og:description" content="Centro de innovación tecnológica y desarrollo digital vinculado a SaludconNutricion.com.">
+<meta property="og:image" content="https://dentrix1001-tech.github.io/Proyecto-DigiThinkingers-.-/GitHubPerfil-Copilot1001Socio.png">
+<meta property="og:site_name" content="DigiThinkingers - SaludconNutricion">
+<meta property="article:author" content="https://www.facebook.com/JuanDaniel.BlazquezAnton.Dentrix.Humanoide.Digital">
+
+<!-- Metadatos genéricos de compatibilidad visual -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Proyecto DigiThinkingers | Dentrix">
+<meta name="twitter:description" content="Centro de innovación tecnológica y desarrollo digital enlazado a SaludconNutricion.com.">
+<meta name="twitter:image" content="https://dentrix1001-tech.github.io/Proyecto-DigiThinkingers-.-/GitHubPerfil-Copilot1001Socio.png">
+
+<!-- Datos Estructurados Schema.org con Vinculación de Redes (sameAs) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Proyecto DigiThinkingers",
+  "description": "Repositorio y escaparate de innovación tecnológica y desarrollo web.",
+  "author": {
+    "@type": "Person",
+    "name": "JuanDaniel Blázquez Antón",
+    "alternateName": "Dentrix",
+    "sameAs": [
+      "https://www.saludconnutricion.com",
+      "https://www.linkedin.com/in/juandaniel-blazquez-anton-44152293k",
+      "https://www.facebook.com/JuanDaniel.BlazquezAnton.Dentrix.Humanoide.Digital"
+    ]
+  },
+  "url": "https://dentrix1001-tech.github.io/Proyecto-DigiThinkingers-.-/"
+}
+</script>
+</head>
+
+<body>
+
+<header>
+<div class="container nav">
+
+<div class="logo">
+Portal Profesional
+</div>
+
+<nav>
+<ul>
+<li><a href="#conocimiento">Conocimiento</a></li>
+<li><a href="#kakarota-siphon">Kakarota Siphon</a></li>
+<li><a href="#contenido">Contenido</a></li>
+<li><a href="#proyectos">Proyectos</a></li>
+<li><a href="#contacto">Contacto</a></li>
+<li>
+<button class="theme-toggle" id="themeToggleBtn" aria-label="Cambiar modo oscuro/claro">
+🌓 <span id="themeText">Modo Oscuro</span>
+</button>
+</li>
+</ul>
+</nav>
+
+</div>
+</header>
+
+<!-- ========================================================================== -->
+<!-- SECCIÓN HERO INSTITUCIONAL: CONOCIMIENTO Y FILOSOFÍA DEL PORTAL -->
+<!-- ========================================================================== -->
+<section class="hero" id="conocimiento" style="padding: 60px 20px; background: var(--bg-main, #f8f9fa);">
+  <div class="container" style="max-width: 1400px; margin: 0 auto;">
+    <div class="hero-card" style="display: flex; flex-direction: column; align-items: center; gap: 30px; background: var(--bg-card, #ffffff); padding: 40px; border-radius: 20px; border: 1px solid var(--border-color, #e1e4e8); box-shadow: var(--shadow, 0 4px 20px rgba(0,0,0,0.05));">
+      
+      <!-- Contenedor Gráfico con Proporción Fija 14:6 y Escala Equilibrada -->
+      <div style="width: 100%; max-width: 850px; aspect-ratio: 14 / 6; overflow: hidden; border-radius: 14px; border: 1px solid var(--border-color, #e1e4e8); background: #f0f4f8; display: flex; align-items: center; justify-content: center;">
+        <img src="GitHubPerfil2-Copilot1001Socia.png" 
+             alt="Brindis por el conocimiento, investigación, educación e innovación" 
+             title="Filosofía del Portal y Desarrollo Tecnológico | DigiThinkingers"
+             loading="lazy"
+             style="width: 100%; height: 100%; object-fit: contain; display: block;">
+      </div>
+
+      <!-- Bloque Informativo Gerencial -->
+      <div class="hero-info" style="text-align: center; max-width: 1000px;">
+        <span style="text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.85rem; color: var(--azul, #0066cc); font-weight: 700; display: block; margin-bottom: 10px;">Ecosistema de Innovación Abierta</span>
+        <h1 style="font-size: 2.2rem; color: var(--text-main, #1a1a1a); margin-bottom: 15px; font-weight: 700;">Brindis por el Conocimiento</h1>
+        <p style="font-size: 1.05rem; color: var(--text-muted, #555555); line-height: 1.6;">Imagen principal destinada a representar la filosofía general del portal: aprendizaje continuo, investigación, educación, desarrollo tecnológico, colaboración internacional, sistemas de información y construcción de nuevas oportunidades.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================================== -->
+<!-- SECCIÓN NUEVA: ARQUITECTURA KAKAROTA SIPHON ENGINE & VISOR PAGINADO        -->
+<!-- ========================================================================== -->
+<section class="section" id="kakarota-siphon" style="background: var(--bg-card); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+  <div class="container">
+    
+    <div class="section-title">
+      <div class="siphon-status-badge">
+        <span>●</span> Motor Kakarota Siphon Operativo (VPS Axarnet)
+      </div>
+      <h2>Kakarota Siphon Engine: Ingesta Multicanal & Datos Abiertos</h2>
+      <p>Subsistema automatizado de ingesta de datos, clasificación inteligente semántica y sincronización continua en GitHub.</p>
+    </div>
+
+    <!-- Grid de Capacidades del Subsistema -->
+    <div class="grid" style="margin-bottom: 40px;">
+      
+      <div class="card">
+        <h3>1. Ingesta Multicanal</h3>
+        <p>Adaptadores seguros concurrentes para <strong>Google Gmail API</strong>, <strong>Microsoft Graph API</strong> y buzones corporativos en <strong>Axarnet IMAP</strong>.</p>
+      </div>
+
+      <div class="card">
+        <h3>2. Kakarota Smart Parser</h3>
+        <p>Análisis sintáctico y semántico en Node.js que genera fichas JSON normalizadas de Tipo A (Empleo), Tipo B (Formación) y Tipo C (B2B).</p>
+      </div>
+
+      <div class="card">
+        <h3>3. Retención Dinámica</h3>
+        <p>Filtrado dinámico con tope de registros recientes y purgado automático para garantizar la máxima ligereza en la red.</p>
+      </div>
+
+      <div class="card">
+        <h3>4. Auto-Sync GitHub</h3>
+        <p>Publicación automática de fichas estructuradas en la carpeta <code>/data/</code> sin interrumpir los recursos existentes.</p>
+      </div>
+
+    </div>
+
+    <!-- Visualizador Interactivo con Paginación Inteligente (Tarjetas 1, 2, 3...) -->
+    <div style="background: var(--azul-claro); padding: 30px; border-radius: 18px; border: 1px solid var(--border-color);">
+      <h3 style="color: var(--azul); margin-bottom: 10px;">📊 Visor Interactivo de Fichas Sincronizadas</h3>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;">Explora los catálogos en tiempo real con navegación por páginas:</p>
+
+      <!-- Botones de Selección de Categoría -->
+      <div style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+        <button onclick="cambiarCategoriaFichas('kakarota-fichas-empleo-a.json', this)" class="siphon-tab-btn" style="background: var(--azul); color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600;">📁 Empleo (Tipo A)</button>
+        <button onclick="cambiarCategoriaFichas('kakarota-fichas-formacion-b.json', this)" class="siphon-tab-btn" style="background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600;">📁 Formación (Tipo B)</button>
+        <button onclick="cambiarCategoriaFichas('kakarota-fichas-b2b-c.json', this)" class="siphon-tab-btn" style="background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600;">📁 B2B (Tipo C)</button>
+      </div>
+
+      <!-- Contenedor de Tarjetas Paginadas -->
+      <div id="siphonCardsContainer" style="display: flex; flex-direction: column; gap: 15px; min-height: 200px; margin-bottom: 20px;">
+        <div style="text-align: center; color: var(--text-muted); padding: 40px;">Cargando registros del motor Siphon...</div>
+      </div>
+
+      <!-- Controles de Paginación -->
+      <div id="siphonPaginationControls" style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;"></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+<div class="container">
+<div class="section-title">
+<h2>Zona Central de Contenido</h2>
+<p>Espacio reservado para futuras presentaciones y marcos de trabajo avanzados.</p>
+</div>
+<div class="placeholder" id="contenido">
+
+<h2>
+MANIFIESTO TECNOLÓGICO Y FILOSOFÍA DEL CONOCIMIENTO
+</h2>
+
+<p>
+
+Este portal constituye un nodo de convergencia entre la investigación tecnológica, el desarrollo de sistemas de información avanzados y la educación digital continua. Concebido bajo principios de interoperabilidad y código abierto, el proyecto integra metodologías de vanguardia para la optimización de recursos digitales y arquitecturas web escalables.
+
+</p>
+
+<br>
+
+<p>
+
+La iniciativa se articula en estrecha sinergia con plataformas de desarrollo tecnológico y divulgación como <strong>SaludConNutricion.com</strong>, consolidando un entorno multidisciplinar donde convergen la ingeniería de software, la gestión de infraestructuras y la accesibilidad universal bajo estándares WCAG.
+
+</p>
+
+</div>
+
+<section class="section">
+  <div class="container">
+    
+    <div class="section-title">
+      <h2>Hoja de Ruta & Marco de Innovación Tecnológica</h2>
+      <p>Líneas de investigación, replicación de funcionalidades avanzadas y visión de desarrollo a medio y largo plazo.</p>
+    </div>
+
+    <div class="grid">
+
+      <!-- Departamento 1: Valorador de Potencialidades -->
+      <a href="departamento1-valorador.html" style="text-decoration: none; color: inherit; display: block;">
+        <div class="card" style="height: 100%; cursor: pointer;">
+          <h3>1. Valorador de Potencialidades Web</h3>
+          <p>Sistema analítico comparativo orientado al diagnóstico técnico de proyectos propios y de la competencia. Incluye auditoría en tiempo real. <br><strong style="color: var(--azul);">Acceder al Departamento 1 →</strong></p>
+        </div>
+      </a>
+
+      <!-- Departamento 2: Red Editorial & Simbiosis -->
+      <a href="departamento2-red-editorial.html" style="text-decoration: none; color: inherit; display: block;">
+        <div class="card" style="height: 100%; cursor: pointer;">
+          <h3>2. Red Editorial & Simbiosis</h3>
+          <p>Evolución de los modelos de intercambio de enlaces hacia una arquitectura de sinergia y "Amigos Web". Incluye generador de widgets. <br><strong style="color: var(--azul);">Acceder al Departamento 2 →</strong></p>
+        </div>
+      </a>
+
+      <!-- Departamento 3: Hub de Datos Abiertos -->
+      <a href="departamento3-hub-investigacion.html" style="text-decoration: none; color: inherit; display: block;">
+        <div class="card" style="height: 100%; cursor: pointer;">
+          <h3>3. Hub de Datos Abiertos & Investigación</h3>
+          <p>Interconexión con repositorios académicos, portales de Open Data y consulta en vivo con la API global de Wikidata. <br><strong style="color: var(--azul);">Acceder al Departamento 3 →</strong></p>
+        </div>
+      </a>
+
+      <!-- Departamento 4: Arquitectura Web & PWA -->
+      <a href="departamento4-arquitectura.html" style="text-decoration: none; color: inherit; display: block;">
+        <div class="card" style="height: 100%; cursor: pointer;">
+          <h3>4. Arquitectura Web & Evolución PWA</h3>
+          <p>Desarrollo modular adaptado a aplicaciones progresivas (PWA), interfaces adaptativas modo dual y diagnóstico del cliente. <br><strong style="color: var(--azul);">Acceder al Departamento 4 →</strong></p>
+        </div>
+      </a>
+    </div>
+
+      <!-- Departamento 5: Sindicador de Empleo & Talento -->
+      <a href="departamento5-empleo-talento.html" style="text-decoration: none; color: inherit; display: block;">
+        <div class="card" style="height: 100%; cursor: pointer;">
+          <h3>5. Sindicador de Empleo & Talento</h3>
+          <p>Agregación inteligente de oportunidades laborales, directorios profesionales y validación de perfiles y credenciales de talento. <br><strong style="color: var(--azul);">Acceder al Departamento 5 →</strong></p>
+        </div>
+      </a>
+
+      <!-- Departamento 6: Asistente Kakarota AI Node -->
+      <a href="departamento6-asistente-ia.html" style="text-decoration: none; color: inherit; display: block;">
+        <div class="card" style="height: 100%; cursor: pointer;">
+          <h3>6. Asistente Kakarota AI Node</h3>
+          <p>Motor cognitivo de asistencia interactiva, árboles de decisión avanzados y recomendación experta integrada en el ecosistema. <br><strong style="color: var(--azul);">Acceder al Departamento 6 →</strong></p>
+        </div>
+      </a>
+
+  </div>
+</section>
+
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+<div class="grid">
+<div class="card">
+<h3>Educación</h3>
+<p>Aprendizaje permanente, conocimiento compartido y capacitación continua orientada a la excelencia.</p>
+</div>
+<div class="card">
+<h3>Investigación</h3>
+<p>Exploración sistemática de nuevas ideas, análisis crítico y desarrollo de soluciones tecnológicas.</p>
+</div>
+<div class="card">
+<h3>Tecnología</h3>
+<p>Sistemas web robustos, inteligencia artificial aplicada, gestión de datos y comunicaciones seguras.</p>
+</div>
+<div class="card">
+<h3>Innovación</h3>
+<p>Creación de herramientas disruptivas y evolución constante de capacidades digitales avanzadas.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ========================================================================== -->
+<!-- SECCIÓN DE PROYECTOS: DESPLIEGUE TÉCNICO E INSTITUCIONAL -->
+<!-- ========================================================================== -->
+<section class="section" id="proyectos" style="padding: 60px 20px;">
+  <div class="container" style="max-width: 1400px; margin: 0 auto;">
+    
+    <!-- Encabezado de Sección Formativo-Gerencial -->
+    <div class="section-title" style="text-align: center; margin-bottom: 40px;">
+      <span style="text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.85rem; color: var(--azul, #0066cc); font-weight: 700; display: block; margin-bottom: 8px;">Ingeniería y Desarrollo</span>
+      <h2 style="font-size: 2rem; color: var(--text-main, #1a1a1a); margin-bottom: 12px; font-weight: 700;">Construcción de Proyectos</h2>
+      <p style="font-size: 1rem; color: var(--text-muted, #555555); max-width: 800px; margin: 0 auto;">Imagen complementaria orientada al despliegue técnico, arquitectura modular y desarrollo digital avanzado.</p>
+    </div>
+
+    <!-- Banner Gráfico con Proporción Fija 14:6 y Escala Equilibrada -->
+    <div class="banner" style="width: 100%; max-width: 1050px; margin: 0 auto; background: var(--bg-card, #ffffff); padding: 25px; border-radius: 20px; border: 1px solid var(--border-color, #e1e4e8); box-shadow: var(--shadow, 0 4px 20px rgba(0,0,0,0.05)); overflow: hidden;">
+      <div style="width: 100%; aspect-ratio: 14 / 6; overflow: hidden; border-radius: 12px; background: #f0f4f8; display: flex; align-items: center; justify-content: center;">
+        <img src="GitHub3Copilot1001Socia.png" 
+             alt="Desarrollo tecnológico, sistemas de información y proyectos digitales" 
+             title="Despliegue Técnico y Proyectos Digitales | DigiThinkingers"
+             loading="lazy"
+             style="width: 100%; height: 100%; object-fit: contain; display: block;">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+<div class="container">
+<div class="accessibility">
+<h2>Declaración Inicial de Accesibilidad e Innovación</h2>
+<p>Este portal se diseña siguiendo rigurosos principios de accesibilidad, usabilidad, legibilidad, navegación intuitiva y compatibilidad multiplataforma, atendiendo a las recomendaciones WCAG 2.1 AA, mejores prácticas de desarrollo web y criterios de máxima visibilidad institucional.</p>
+</div>
+</div>
+</section>
+
+<footer id="contacto">
+<div class="footer-inner">
+<h3>Tecnología • Investigación • Innovación</h3>
+<p>Espacio preparado para integrar accesos directos a redes profesionales, repositorios GitHub, plataformas tecnológicas, documentación técnica y proyectos de colaboración.</p>
+<ul class="footer-links">
+<li><a href="https://www.saludconnutricion.com" target="_blank" rel="noopener">SaludConNutricion.com</a></li>
+<li><a href="https://www.linkedin.com/in/juandaniel-blazquez-anton-44152293k" target="_blank" rel="noopener">LinkedIn Profesional</a></li>
+<li><a href="https://www.facebook.com/JuanDaniel.BlazquezAnton.Dentrix.Humanoide.Digital" target="_blank" rel="noopener">Comunidad Facebook</a></li>
+<li><a href="https://github.com/dentrix1001-tech" target="_blank" rel="noopener">GitHub Repositorios</a></li>
+</ul>
+</div>
+</footer>
+
+<!-- ========================================================================== -->
+<!-- COLOFÓN INSTITUCIONAL AVANZADO - PROYECTO DIGITHINKERS & SALUD CON NUTRICIÓN -->
+<!-- ========================================================================== -->
+<footer style="background: var(--bg-card); border-top: 1px solid var(--border-color); padding: 40px 20px; margin-top: 60px; font-family: Segoe UI, Tahoma, sans-serif;">
+  <div class="container" style="max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px;">
+    
+    <!-- Fila Superior: Widgets Interactivos (Reloj/IP & Traductor) -->
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding-bottom: 25px; border-bottom: 1px solid var(--border-color);">
+      
+      <!-- Mini Recurso 1: Sincronización Temporal y de Red (Fecha, Hora y Ubicación/IP) -->
+      <div id="recursoTelemetryWidget" style="display: flex; align-items: center; gap: 15px; background: var(--azul-claro); padding: 12px 20px; border-radius: 12px; border: 1px solid var(--border-color); font-size: 0.9rem; color: var(--text-main);">
+        <span style="font-size: 1.2rem;">🌐</span>
+        <div>
+          <strong style="color: var(--azul);">Telemetry Node:</strong> 
+          <span id="telemetryDataText" style="color: var(--text-muted);">Sincronizando red y hora local...</span>
+        </div>
+      </div>
+
+      <!-- Mini Recurso 2: Traductor Profesional Multilingüe (Google Compatible / Universal) -->
+      <div style="display: flex; align-items: center; gap: 10px; background: var(--azul-claro); padding: 10px 16px; border-radius: 12px; border: 1px solid var(--border-color);">
+        <span style="font-size: 1.1rem;" title="Selector de Idioma Institucional">🌍</span>
+        <div id="google_translate_element" style="display: inline-block;"></div>
+      </div>
+
+    </div>
+
+    <!-- Fila Inferior: Créditos del Autor y Colofón del Ecosistema -->
+    <div style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+      <p style="margin-bottom: 6px;"><strong>Ecosistema Tecnológico DigiThinkingers</strong> • Desarrollado bajo estándares de código abierto, accesibilidad PWA y diseño modular.</p>
+      <p>Diseñado y estructurado con rigor artesanal por <strong>JuanDaniel Blázquez Antón (Dentrix)</strong> | Altza, Donostia - San Sebastián.</p>
+    </div>
+
+  </div>
+</footer>
+
+<!-- ========================================================================== -->
+<!-- SCRIPTS DE FUNCIONALIDAD PARA LOS MINI RECURSOS & VISOR PAGINADO          -->
+<!-- ========================================================================== -->
+<script>
+// Estado global del visor paginado Kakarota Siphon
+let siphonCurrentData = [];
+let siphonCurrentPage = 1;
+const itemsPerPage = 3; // 3 fichas por página para una lectura cómoda
+
+// Cargar y almacenar los datos JSON con paginación
+async function cambiarCategoriaFichas(nombreArchivo, btnElement) {
+  document.querySelectorAll('.siphon-tab-btn').forEach(b => {
+    b.style.background = 'var(--bg-card)';
+    b.style.color = 'var(--text-main)';
+    b.style.border = '1px solid var(--border-color)';
+  });
+  if(btnElement) {
+    btnElement.style.background = 'var(--azul)';
+    btnElement.style.color = 'white';
+    btnElement.style.border = 'none';
+  }
+
+  const container = document.getElementById('siphonCardsContainer');
+  container.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 40px;">⌛ Sincronizando y cargando ${nombreArchivo}...</div>`;
+
+  try {
+    const response = await fetch(`./data/${nombreArchivo}`);
+    if (!response.ok) throw new Error(`No se ha podido acceder al recurso (${response.status})`);
+    
+    siphonCurrentData = await response.json();
+    siphonCurrentPage = 1;
+    renderizarPaginaSiphon();
+  } catch (error) {
+    container.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 30px;">ℹ️ No hay registros activos en esta categoría o el archivo está pendiente de sincronización inicial.</div>`;
+    document.getElementById('siphonPaginationControls').innerHTML = '';
+  }
+}
+
+// Renderizar tarjetas paginadas
+function renderizarPaginaSiphon() {
+  const container = document.getElementById('siphonCardsContainer');
+  const paginationContainer = document.getElementById('siphonPaginationControls');
+
+  if (!siphonCurrentData || siphonCurrentData.length === 0) {
+    container.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 30px;">No hay fichas registradas actualmente.</div>`;
+    paginationContainer.innerHTML = '';
+    return;
+  }
+
+  const startIndex = (siphonCurrentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = siphonCurrentData.slice(startIndex, endIndex);
+
+  let htmlCards = '';
+  currentItems.forEach(item => {
+    const titulo = item.puesto || item.titulo_curso || item.tipo_propuesta || "Registro Siphon";
+    const entidad = item.empresa || item.institucion || item.entidad_origen || "Ecosistema DigiThinkingers";
+    const fecha = item.fecha_deteccion ? new Date(item.fecha_deteccion).toLocaleDateString() : "Reciente";
+    const enlace = item.enlace_directo || item.enlace_inscripcion || item.contacto_referencia ? `href="${item.enlace_directo || item.enlace_inscripcion || '#'}" target="_blank" rel="noopener"` : '';
+
+    htmlCards += `
+      <div style="background: var(--bg-card); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: var(--shadow);">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+          <h4 style="color: var(--azul); font-size: 1.1rem; margin: 0;">${titulo}</h4>
+          <span style="font-size: 0.8rem; background: var(--azul-claro); color: var(--azul); padding: 3px 8px; border-radius: 6px; font-weight: 600;">${fecha}</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 12px;"><strong>Origen / Entidad:</strong> ${entidad}</p>
+        ${enlace ? `<a ${enlace} style="color: var(--azul); font-weight: 600; font-size: 0.9rem; text-decoration: none;">Acceder al recurso externo →</a>` : ''}
+      </div>
+    `;
+  });
+
+  container.innerHTML = htmlCards;
+
+  const totalPages = Math.ceil(siphonCurrentData.length / itemsPerPage);
+  let paginationHTML = '';
+
+  if (totalPages > 1) {
+    paginationHTML += `<button onclick="cambiarPaginaSiphon(${siphonCurrentPage - 1})" ${siphonCurrentPage === 1 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''} style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 6px; cursor: pointer; color: var(--text-main);">Anterior</button>`;
+
+    for (let i = 1; i <= totalPages; i++) {
+      const activeStyle = i === siphonCurrentPage ? 'background: var(--azul); color: white; border: none;' : 'background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color);';
+      paginationHTML += `<button onclick="cambiarPaginaSiphon(${i})" style="${activeStyle} padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 600;">${i}</button>`;
+    }
+
+    paginationHTML += `<button onclick="cambiarPaginaSiphon(${siphonCurrentPage + 1})" ${siphonCurrentPage === totalPages ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''} style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 6px; cursor: pointer; color: var(--text-main);">Siguiente</button>`;
+  }
+
+  paginationContainer.innerHTML = paginationHTML;
+}
+
+function cambiarPaginaSiphon(nuevaPagina) {
+  const totalPages = Math.ceil(siphonCurrentData.length / itemsPerPage);
+  if (nuevaPagina >= 1 && nuevaPagina <= totalPages) {
+    siphonCurrentPage = nuevaPagina;
+    renderizarPaginaSiphon();
+  }
+}
+
+// 1. Script para el Mini Recurso de Fecha, Hora y Geolocalización/IP
+document.addEventListener('DOMContentLoaded', () => {
+  actualizarRelojYRed();
+  setInterval(actualizarRelojYRed, 1000);
+  
+  // Carga inicial automática de fichas de empleo
+  fetch('./data/kakarota-fichas-empleo-a.json')
+    .then(res => res.json())
+    .then(data => {
+      siphonCurrentData = data;
+      renderizarPaginaSiphon();
+    })
+    .catch(() => {
+      document.getElementById('siphonCardsContainer').innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 30px;">ℹ️ Esperando sincronización inicial de fichas desde Axarnet.</div>`;
+    });
+});
+
+async function actualizarRelojYRed() {
+  const elementoTelemetry = document.getElementById('telemetryDataText');
+  if (!elementoTelemetry) return;
+
+  const ahora = new Date();
+  const opcionesFecha = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  const fechaStr = ahora.toLocaleDateString('es-ES', opcionesFecha);
+  const horaStr = ahora.toLocaleTimeString('es-ES');
+
+  let infoRed = "Donostia-San Sebastián (Nodo Local)";
+  try {
+    if (!window.cachedIPInfo) {
+      const res = await fetch('https://ipapi.co/json/');
+      const data = await res.json();
+      window.cachedIPInfo = `${data.city || 'Ubicación Desconocida'}, ${data.country_code || 'ES'} (IP: ${data.ip || 'Protegida'})`;
+    }
+    infoRed = window.cachedIPInfo;
+  } catch (e) {
+    infoRed = "Donostia-San Sebastián / Red Segura";
+  }
+
+  elementoTelemetry.innerHTML = `${fechaStr} - ${horaStr} | <span style="color: var(--azul); font-weight: 600;">${infoRed}</span>`;
+}
+
+// 2. Script para el Traductor Oficial Integrado (Google Translate Element)
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'es',
+    includedLanguages: 'es,eu,en,fr,de,it,pt,zh-CN,ja',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<!-- Script Asíncrono del Traductor Universal de Google -->
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+
+<script>
+// Script para el funcionamiento interactivo del Modo Oscuro/Claro
+const themeToggleBtn = document.getElementById('themeToggleBtn');
+const themeText = document.getElementById('themeText');
+const htmlElement = document.documentElement;
+
+const savedTheme = localStorage.getItem('theme') || 'light';
+if (savedTheme === 'dark') {
+    htmlElement.setAttribute('data-theme', 'dark');
+    themeText.textContent = 'Modo Claro';
+}
+
+themeToggleBtn.addEventListener('click', () => {
+    if (htmlElement.getAttribute('data-theme') === 'dark') {
+        htmlElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeText.textContent = 'Modo Oscuro';
+    } else {
+        htmlElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeText.textContent = 'Modo Claro';
+    }
+});
+</script>
+
+</body>
+</html>

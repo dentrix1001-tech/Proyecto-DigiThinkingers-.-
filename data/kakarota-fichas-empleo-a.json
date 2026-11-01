@@ -1,17 +1,20 @@
 [
-    {
-        "id_oferta": "kakarota_a_1793557183208_init",
-        "empresa": "DigiThinkingers Partner Network",
-        "puesto": "Desarrollador Node.js y Automatización Web Siphon",
-        "modalidad": "Presencial / Híbrido",
-        "requisitos_clave": [
-            "node.js",
-            "express",
-            "imap",
-            "automatización"
-        ],
-        "enlace_directo": "https://www.saludconnutricion.com",
-        "fecha_deteccion": "2026-11-01T19:00:00.000Z",
-        "estado": "Activa"
-    }
+  {
+    "puesto": "Instalador Técnico de Sistemas Web y Cámaras IP",
+    "empresa": "Gobierno Vasco - Infraestructuras Educativas",
+    "fecha_deteccion": "2026-11-01",
+    "tipo_propuesta": "Empleo Técnico A",
+    "remitente": "empleo-tecnico@euskadi.eus",
+    "asunto": "Nueva Licitación de Instalación en Centros Educativos de Guipúzcoa",
+    "cuerpo": "Revisión y despliegue de infraestructura de cámaras IP y sistemas web de control de accesos dependientes del Departamento de Educación."
+  },
+  {
+    "puesto": "Desarrollador Backend Node.js Senior & Arquitectura Siphon",
+    "empresa": "Ecosistema Digital DigiThinkingers",
+    "fecha_deteccion": "2026-11-01",
+    "tipo_propuesta": "Empleo Técnico A",
+    "remitente": "DigiThinkingers@SaludconNutricion.com",
+    "asunto": "Optimización y Monitoreo del Motor Kakarota Siphon",
+    "cuerpo": "Mantenimiento evolutivo de nodos asíncronos y conectores IMAP en servidor VPS Axarnet."
+  }
 ]

@@ -318,6 +318,21 @@ footer {
     color: var(--text-muted);
 }
 
+/* Estilos específicos para la consola y tarjetas Kakarota Siphon */
+.siphon-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #10b98120;
+    color: #10b981;
+    border: 1px solid #10b98140;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+}
+
 @media(max-width: 768px) {
     .hero-info h1 {
         font-size: 1.8rem;
@@ -378,6 +393,7 @@ Portal Profesional
 <nav>
 <ul>
 <li><a href="#conocimiento">Conocimiento</a></li>
+<li><a href="#kakarota-siphon">Kakarota Siphon</a></li>
 <li><a href="#contenido">Contenido</a></li>
 <li><a href="#proyectos">Proyectos</a></li>
 <li><a href="#contacto">Contacto</a></li>
@@ -419,6 +435,69 @@ Portal Profesional
   </div>
 </section>
 
+<!-- ========================================================================== -->
+<!-- SECCIÓN NUEVA: ARQUITECTURA KAKAROTA SIPHON ENGINE & VISOR PAGINADO        -->
+<!-- ========================================================================== -->
+<section class="section" id="kakarota-siphon" style="background: var(--bg-card); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+  <div class="container">
+    
+    <div class="section-title">
+      <div class="siphon-status-badge">
+        <span>●</span> Motor Kakarota Siphon Operativo (VPS Axarnet)
+      </div>
+      <h2>Kakarota Siphon Engine: Ingesta Multicanal & Datos Abiertos</h2>
+      <p>Subsistema automatizado de ingesta de datos, clasificación inteligente semántica y sincronización continua en GitHub.</p>
+    </div>
+
+    <!-- Grid de Capacidades del Subsistema -->
+    <div class="grid" style="margin-bottom: 40px;">
+      
+      <div class="card">
+        <h3>1. Ingesta Multicanal</h3>
+        <p>Adaptadores seguros concurrentes para <strong>Google Gmail API</strong>, <strong>Microsoft Graph API</strong> y buzones corporativos en <strong>Axarnet IMAP</strong>.</p>
+      </div>
+
+      <div class="card">
+        <h3>2. Kakarota Smart Parser</h3>
+        <p>Análisis sintáctico y semántico en Node.js que genera fichas JSON normalizadas de Tipo A (Empleo), Tipo B (Formación) y Tipo C (B2B).</p>
+      </div>
+
+      <div class="card">
+        <h3>3. Retención Dinámica</h3>
+        <p>Filtrado dinámico con tope de registros recientes y purgado automático para garantizar la máxima ligereza en la red.</p>
+      </div>
+
+      <div class="card">
+        <h3>4. Auto-Sync GitHub</h3>
+        <p>Publicación automática de fichas estructuradas en la carpeta <code>/data/</code> sin interrumpir los recursos existentes.</p>
+      </div>
+
+    </div>
+
+    <!-- Visualizador Interactivo con Paginación Inteligente (Tarjetas 1, 2, 3...) -->
+    <div style="background: var(--azul-claro); padding: 30px; border-radius: 18px; border: 1px solid var(--border-color);">
+      <h3 style="color: var(--azul); margin-bottom: 10px;">📊 Visor Interactivo de Fichas Sincronizadas</h3>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;">Explora los catálogos en tiempo real con navegación por páginas:</p>
+
+      <!-- Botones de Selección de Categoría -->
+      <div style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+        <button onclick="cambiarCategoriaFichas('kakarota-fichas-empleo-a.json', this)" class="siphon-tab-btn" style="background: var(--azul); color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600;">📁 Empleo (Tipo A)</button>
+        <button onclick="cambiarCategoriaFichas('kakarota-fichas-formacion-b.json', this)" class="siphon-tab-btn" style="background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600;">📁 Formación (Tipo B)</button>
+        <button onclick="cambiarCategoriaFichas('kakarota-fichas-b2b-c.json', this)" class="siphon-tab-btn" style="background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600;">📁 B2B (Tipo C)</button>
+      </div>
+
+      <!-- Contenedor de Tarjetas Paginadas -->
+      <div id="siphonCardsContainer" style="display: flex; flex-direction: column; gap: 15px; min-height: 200px; margin-bottom: 20px;">
+        <div style="text-align: center; color: var(--text-muted); padding: 40px;">Cargando registros del motor Siphon...</div>
+      </div>
+
+      <!-- Controles de Paginación -->
+      <div id="siphonPaginationControls" style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;"></div>
+    </div>
+
+  </div>
+</section>
+
 <section class="section">
 <div class="container">
 <div class="section-title">
@@ -447,9 +526,6 @@ La iniciativa se articula en estrecha sinergia con plataformas de desarrollo tec
 
 </div>
 
-
-
-
 <section class="section">
   <div class="container">
     
@@ -460,7 +536,7 @@ La iniciativa se articula en estrecha sinergia con plataformas de desarrollo tec
 
     <div class="grid">
 
-     <!-- Departamento 1: Valorador de Potencialidades -->
+      <!-- Departamento 1: Valorador de Potencialidades -->
       <a href="departamento1-valorador.html" style="text-decoration: none; color: inherit; display: block;">
         <div class="card" style="height: 100%; cursor: pointer;">
           <h3>1. Valorador de Potencialidades Web</h3>
@@ -512,11 +588,6 @@ La iniciativa se articula en estrecha sinergia con plataformas de desarrollo tec
   </div>
 </section>
 
-
-
-
-
-    
 </div>
 </section>
 
@@ -592,7 +663,7 @@ La iniciativa se articula en estrecha sinergia con plataformas de desarrollo tec
 </div>
 </footer>
 
-    <!-- ========================================================================== -->
+<!-- ========================================================================== -->
 <!-- COLOFÓN INSTITUCIONAL AVANZADO - PROYECTO DIGITHINKERS & SALUD CON NUTRICIÓN -->
 <!-- ========================================================================== -->
 <footer style="background: var(--bg-card); border-top: 1px solid var(--border-color); padding: 40px 20px; margin-top: 60px; font-family: Segoe UI, Tahoma, sans-serif;">
@@ -628,13 +699,119 @@ La iniciativa se articula en estrecha sinergia con plataformas de desarrollo tec
 </footer>
 
 <!-- ========================================================================== -->
-<!-- SCRIPTS DE FUNCIONALIDAD PARA LOS MINI RECURSOS                          -->
+<!-- SCRIPTS DE FUNCIONALIDAD PARA LOS MINI RECURSOS & VISOR PAGINADO          -->
 <!-- ========================================================================== -->
 <script>
+// Estado global del visor paginado Kakarota Siphon
+let siphonCurrentData = [];
+let siphonCurrentPage = 1;
+const itemsPerPage = 3; // 3 fichas por página para una lectura cómoda
+
+// Cargar y almacenar los datos JSON con paginación
+async function cambiarCategoriaFichas(nombreArchivo, btnElement) {
+  document.querySelectorAll('.siphon-tab-btn').forEach(b => {
+    b.style.background = 'var(--bg-card)';
+    b.style.color = 'var(--text-main)';
+    b.style.border = '1px solid var(--border-color)';
+  });
+  if(btnElement) {
+    btnElement.style.background = 'var(--azul)';
+    btnElement.style.color = 'white';
+    btnElement.style.border = 'none';
+  }
+
+  const container = document.getElementById('siphonCardsContainer');
+  container.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 40px;">⌛ Sincronizando y cargando ${nombreArchivo}...</div>`;
+
+  try {
+    const response = await fetch(`./data/${nombreArchivo}`);
+    if (!response.ok) throw new Error(`No se ha podido acceder al recurso (${response.status})`);
+    
+    siphonCurrentData = await response.json();
+    siphonCurrentPage = 1;
+    renderizarPaginaSiphon();
+  } catch (error) {
+    container.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 30px;">ℹ️ No hay registros activos en esta categoría o el archivo está pendiente de sincronización inicial.</div>`;
+    document.getElementById('siphonPaginationControls').innerHTML = '';
+  }
+}
+
+// Renderizar tarjetas paginadas
+function renderizarPaginaSiphon() {
+  const container = document.getElementById('siphonCardsContainer');
+  const paginationContainer = document.getElementById('siphonPaginationControls');
+
+  if (!siphonCurrentData || siphonCurrentData.length === 0) {
+    container.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 30px;">No hay fichas registradas actualmente.</div>`;
+    paginationContainer.innerHTML = '';
+    return;
+  }
+
+  const startIndex = (siphonCurrentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = siphonCurrentData.slice(startIndex, endIndex);
+
+  let htmlCards = '';
+  currentItems.forEach(item => {
+    const titulo = item.puesto || item.titulo_curso || item.tipo_propuesta || "Registro Siphon";
+    const entidad = item.empresa || item.institucion || item.entidad_origen || "Ecosistema DigiThinkingers";
+    const fecha = item.fecha_deteccion ? new Date(item.fecha_deteccion).toLocaleDateString() : "Reciente";
+    const enlace = item.enlace_directo || item.enlace_inscripcion || item.contacto_referencia ? `href="${item.enlace_directo || item.enlace_inscripcion || '#'}" target="_blank" rel="noopener"` : '';
+
+    htmlCards += `
+      <div style="background: var(--bg-card); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: var(--shadow);">
+        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+          <h4 style="color: var(--azul); font-size: 1.1rem; margin: 0;">${titulo}</h4>
+          <span style="font-size: 0.8rem; background: var(--azul-claro); color: var(--azul); padding: 3px 8px; border-radius: 6px; font-weight: 600;">${fecha}</span>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 12px;"><strong>Origen / Entidad:</strong> ${entidad}</p>
+        ${enlace ? `<a ${enlace} style="color: var(--azul); font-weight: 600; font-size: 0.9rem; text-decoration: none;">Acceder al recurso externo →</a>` : ''}
+      </div>
+    `;
+  });
+
+  container.innerHTML = htmlCards;
+
+  const totalPages = Math.ceil(siphonCurrentData.length / itemsPerPage);
+  let paginationHTML = '';
+
+  if (totalPages > 1) {
+    paginationHTML += `<button onclick="cambiarPaginaSiphon(${siphonCurrentPage - 1})" ${siphonCurrentPage === 1 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''} style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 6px; cursor: pointer; color: var(--text-main);">Anterior</button>`;
+
+    for (let i = 1; i <= totalPages; i++) {
+      const activeStyle = i === siphonCurrentPage ? 'background: var(--azul); color: white; border: none;' : 'background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color);';
+      paginationHTML += `<button onclick="cambiarPaginaSiphon(${i})" style="${activeStyle} padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 600;">${i}</button>`;
+    }
+
+    paginationHTML += `<button onclick="cambiarPaginaSiphon(${siphonCurrentPage + 1})" ${siphonCurrentPage === totalPages ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''} style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 6px; cursor: pointer; color: var(--text-main);">Siguiente</button>`;
+  }
+
+  paginationContainer.innerHTML = paginationHTML;
+}
+
+function cambiarPaginaSiphon(nuevaPagina) {
+  const totalPages = Math.ceil(siphonCurrentData.length / itemsPerPage);
+  if (nuevaPagina >= 1 && nuevaPagina <= totalPages) {
+    siphonCurrentPage = nuevaPagina;
+    renderizarPaginaSiphon();
+  }
+}
+
 // 1. Script para el Mini Recurso de Fecha, Hora y Geolocalización/IP
 document.addEventListener('DOMContentLoaded', () => {
   actualizarRelojYRed();
   setInterval(actualizarRelojYRed, 1000);
+  
+  // Carga inicial automática de fichas de empleo
+  fetch('./data/kakarota-fichas-empleo-a.json')
+    .then(res => res.json())
+    .then(data => {
+      siphonCurrentData = data;
+      renderizarPaginaSiphon();
+    })
+    .catch(() => {
+      document.getElementById('siphonCardsContainer').innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 30px;">ℹ️ Esperando sincronización inicial de fichas desde Axarnet.</div>`;
+    });
 });
 
 async function actualizarRelojYRed() {
@@ -646,10 +823,8 @@ async function actualizarRelojYRed() {
   const fechaStr = ahora.toLocaleDateString('es-ES', opcionesFecha);
   const horaStr = ahora.toLocaleTimeString('es-ES');
 
-  // Intentamos obtener la IP y la ubicación de forma ligera y no bloqueante
   let infoRed = "Donostia-San Sebastián (Nodo Local)";
   try {
-    // Si ya tenemos cacheada la IP en la sesión la reutilizamos para agilizar
     if (!window.cachedIPInfo) {
       const res = await fetch('https://ipapi.co/json/');
       const data = await res.json();
@@ -682,7 +857,6 @@ const themeToggleBtn = document.getElementById('themeToggleBtn');
 const themeText = document.getElementById('themeText');
 const htmlElement = document.documentElement;
 
-// Comprobar preferencia guardada previamente
 const savedTheme = localStorage.getItem('theme') || 'light';
 if (savedTheme === 'dark') {
     htmlElement.setAttribute('data-theme', 'dark');

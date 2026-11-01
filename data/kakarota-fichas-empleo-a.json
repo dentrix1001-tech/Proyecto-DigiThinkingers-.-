@@ -1,0 +1,17 @@
+[
+    {
+        "id_oferta": "kakarota_a_1793557183208_init",
+        "empresa": "DigiThinkingers Partner Network",
+        "puesto": "Desarrollador Node.js y Automatización Web Siphon",
+        "modalidad": "Presencial / Híbrido",
+        "requisitos_clave": [
+            "node.js",
+            "express",
+            "imap",
+            "automatización"
+        ],
+        "enlace_directo": "https://www.saludconnutricion.com",
+        "fecha_deteccion": "2026-11-01T19:00:00.000Z",
+        "estado": "Activa"
+    }
+]

@@ -1,0 +1,16 @@
+[
+    {
+        "id_formacion": "kakarota_b_1793557183209_init",
+        "institucion": "Hub de Investigación y Capacitación DigiThinkingers",
+        "titulo_curso": "Arquitectura de Motores de Ingesta y Web Scraping Ético",
+        "duracion_horas": 40,
+        "tecnologias": [
+            "javascript",
+            "json",
+            "rest apis"
+        ],
+        "enlace_inscripcion": "https://dentrix1001-tech.github.io",
+        "fecha_deteccion": "2026-11-01T19:00:00.000Z",
+        "estado": "Disponible"
+    }
+]

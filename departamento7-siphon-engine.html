@@ -220,23 +220,83 @@ footer {
 
 </section>
 
-<!-- Contenedor Principal de la Consola -->
-<div style="background: var(--azul-claro); padding: 35px; border-radius: 20px; border: 1px solid var(--border-color);">
-<div class="control-bar">
-<div style="display: flex; gap: 10px; flex-wrap: wrap;">
-<button onclick="cargarFichasDepartamento('kakarota-fichas-empleo-a.json', this)" class="dept-tab-btn" style="background: var(--azul); color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600;">📁 Empleo Técnico (A)</button>
-<button onclick="cargarFichasDepartamento('kakarota-fichas-formacion-b.json', this)" class="dept-tab-btn" style="background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600;">📁 Formación (B)</button>
-<button onclick="cargarFichasDepartamento('kakarota-fichas-b2b-c.json', this)" class="dept-tab-btn" style="background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 600;">📁 Alianzas B2B (C)</button>
-</div>
-<div>
-<input type="text" id="deptSearchInput" placeholder="🔍 Buscar registros o metadatos..." class="search-box" onkeyup="filtrarFichasDepartamento()">
-</div>
-</div>
 
-<!-- Listado Dinámico de Fichas -->
-<div id="deptCardsContainer" style="display: flex; flex-direction: column; gap: 15px; min-height: 250px; margin-bottom: 25px;">
-<div style="text-align: center; color: var(--text-muted); padding: 50px;">Cargando registros institucionales del Departamento 7...</div>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- VISOR RECTANGULAR INTERACTIVO : CARRUSEL DE VENTANAS WEB (1 URLs)     -->
+<!-- Protocolo Estándar Altza 2026 · Cero Pérdida de Enlaces               -->
+<!-- ===================================================================== -->
+<div class="live-web-showcase" id="sec-14-visor">
+  <div class="showcase-top-bar">
+    <h4>🪟 Visor Interactivo de Ecosistemas Web y Plataformas (Desliza con ratón o dedo)</h4>
+    <span class="swipe-hint">← Directorios y Redes Integrados →</span>
+  </div>
+
+  <div class="live-frames-track">
+
+   
+
+    <!-- 4. JobsToday.World -->
+    <div class="frame-window-card">
+      <div class="window-header">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        <span class="window-title">Jobs To day · Ayudante de Oficios</span>
+      </div>
+      <div class="iframe-box">
+        <iframe src="https://saludconnutricion.com/IndexServidorHogar20017Altza/GitHub/departamento7-siphon-engine.html" title="Jobs To day" loading="lazy"></iframe>
+      </div>
+      <div class="window-footer">
+        <a href="https://saludconnutricion.com/IndexServidorHogar20017Altza/GitHub/departamento7-siphon-engine.html" target="_blank" rel="noopener">Abrir enlace directo ↗</a>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 <!-- Controles de Paginación -->
 <div id="deptPaginationControls" style="display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;"></div>

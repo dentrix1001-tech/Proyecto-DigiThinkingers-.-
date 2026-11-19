@@ -9,6 +9,118 @@
 <meta name="author" content="JuanDaniel Blázquez Antón">
 <link rel="manifest" href="manifest.json">
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+
+html,
+body{
+    margin:0;
+    padding:0;
+    width:100%;
+    height:100%;
+}
+
+#visor-completo{
+    width:100%;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    background:#f5f7fa;
+}
+
+.barra-superior{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:12px 20px;
+    background:#0f172a;
+    color:white;
+    flex-shrink:0;
+}
+
+.barra-superior h2{
+    margin:0;
+    font-size:18px;
+}
+
+.barra-superior a{
+    color:#60a5fa;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.barra-superior a:hover{
+    text-decoration:underline;
+}
+
+#visor-completo iframe{
+    width:100%;
+    height:calc(100vh - 60px);
+    border:none;
+    background:white;
+    flex-grow:1;
+}
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
 <style>
 :root {
     --azul: #0E5EB8;
@@ -254,32 +366,31 @@ footer {
 
 
 
-<!-- VISOR RECTANGULAR INTERACTIVO : CARRUSEL DE VENTANAS WEB (1 URLs)     -->
-<!-- Protocolo Estándar Altza 2026 · Cero Pérdida de Enlaces               -->
 <!-- ===================================================================== -->
-<div class="live-web-showcase" id="sec-14-visor">
-  <div class="showcase-top-bar">
-    <h4>🪟 Visor Interactivo de Ecosistemas Web y Plataformas (Desliza con ratón o dedo)</h4>
-    <span class="swipe-hint">← Directorios y Redes Integrados →</span>
-  </div>
+<!-- VISOR WEB PANTALLA COMPLETA - ALTZA 2026 -->
+<!-- ===================================================================== -->
 
-  <div class="live-frames-track">
+<div id="visor-completo">
 
-   
+    <div class="barra-superior">
+        <h2>🪟 Jobs To day · Ayudante de Oficios</h2>
 
-    <!-- 4. JobsToday.World -->
-    <div class="frame-window-card">
-      <div class="window-header">
-        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-        <span class="window-title">Jobs To day · Ayudante de Oficios</span>
-      </div>
-      <div class="iframe-box">
-        <iframe src="https://saludconnutricion.com/IndexServidorHogar20017Altza/GitHub/departamento7-siphon-engine.html" title="Jobs To day" loading="lazy"></iframe>
-      </div>
-      <div class="window-footer">
-        <a href="https://saludconnutricion.com/IndexServidorHogar20017Altza/GitHub/departamento7-siphon-engine.html" target="_blank" rel="noopener">Abrir enlace directo ↗</a>
-      </div>
+        <a
+            href="https://saludconnutricion.com/IndexServidorHogar20017Altza/GitHub/departamento7-siphon-engine.html"
+            target="_blank"
+            rel="noopener noreferrer">
+            Abrir en ventana independiente ↗
+        </a>
     </div>
+
+    <iframe
+        src="https://saludconnutricion.com/IndexServidorHogar20017Altza/GitHub/departamento7-siphon-engine.html"
+        title="Jobs To day"
+        loading="lazy">
+    </iframe>
+
+</div>
+
 
 
 

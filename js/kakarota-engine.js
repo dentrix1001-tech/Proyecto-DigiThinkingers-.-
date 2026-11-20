@@ -1,12 +1,15 @@
 /**
- * ============================================================================
- * FICHA TÉCNICA - SCRIPT ASISTENTE KAKAROTA (Depto. 6)
- * ============================================================================
- * @file kakarota-engine.js
- * @author JuanDaniel Blázquez Antón (Dentrix)
- * @description Motor lógico del asistente inteligente y diagnóstico guiado.
- * ============================================================================
+- ============================================================================
+- FICHA TÉCNICA - SCRIPT ASISTENTE KAKAROTA (Depto. 6)
+- ============================================================================
+- @file kakarota-engine.js
+- @author JuanDaniel Blázquez Antón (Dentrix)
+- @description Motor lógico del asistente inteligente y diagnóstico guiado.
+- ============================================================================
  */
+
+const SUPABASE_REGLAS_URL =
+  'https://jgmqtslpyyponvvjwrft.supabase.co/storage/v1/object/public/digithinkingers-json/diagnostico-reglas.json';
 
 document.addEventListener('DOMContentLoaded', () => {
   inicializarAsistenteKakarota();
@@ -30,7 +33,10 @@ async function procesarConsultaKakarota() {
   contenedorRespuestas.innerHTML = '<p style="color: var(--azul); font-weight: bold;">🤖 Kakarota AI Node analizando tu consulta...</p>';
 
   try {
-    const respuesta = await fetch('data/diagnostico-reglas.json');
+    const respuesta = await fetch(SUPABASE_REGLAS_URL, { cache: 'no-store' });
+    if (!respuesta.ok) {
+      throw new Error(`Error HTTP ${respuesta.status}`);
+    }
     const data = await respuesta.json();
 
     const reglaEncontrada = data.modulos_guia.find(m => m.clave === seleccion || m.key === seleccion);
@@ -49,7 +55,6 @@ async function procesarConsultaKakarota() {
         contenedorRespuestas.innerHTML = '<p>Consulta procesada correctamente dentro del ecosistema modular.</p>';
       }
     }, 600);
-
   } catch (error) {
     contenedorRespuestas.innerHTML = '<p style="color: red;">Error al procesar las reglas de diagnóstico inteligente.</p>';
   }

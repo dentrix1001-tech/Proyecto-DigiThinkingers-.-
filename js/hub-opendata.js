@@ -1,7 +1,10 @@
 /**
- * Conector y Gestor del Hub de Datos Abiertos - Depto. 3
- * Desarrollado para Proyecto DigiThinkingers / SaludConNutricion.com
+- Conector y Gestor del Hub de Datos Abiertos - Depto. 3
+- Desarrollado para Proyecto DigiThinkingers / SaludConNutricion.com
  */
+
+const SUPABASE_FUENTES_URL =
+  'https://jgmqtslpyyponvvjwrft.supabase.co/storage/v1/object/public/digithinkingers-json/fuentes-investigacion.json';
 
 document.addEventListener('DOMContentLoaded', () => {
   inicializarHubOpenData();
@@ -22,7 +25,10 @@ async function cargarFuentesInstitucionales() {
   if (!contenedorFuentes) return;
 
   try {
-    const respuesta = await fetch('data/fuentes-investigacion.json');
+    const respuesta = await fetch(SUPABASE_FUENTES_URL, { cache: 'no-store' });
+    if (!respuesta.ok) {
+      throw new Error(`Error HTTP ${respuesta.status}`);
+    }
     const data = await respuesta.json();
 
     let html = '<ul style="list-style: none; padding: 0;">';
@@ -37,7 +43,6 @@ async function cargarFuentesInstitucionales() {
     });
     html += '</ul>';
     contenedorFuentes.innerHTML = html;
-
   } catch (error) {
     contenedorFuentes.innerHTML = '<p style="color: var(--text-muted);">Fuentes de investigación sincronizadas correctamente en entorno local.</p>';
   }
@@ -61,8 +66,11 @@ async function consultarDatosAbiertos() {
 
   try {
     const urlApi = `https://www.wikidata.org/w/api.php?action=wbsearchentities&search=${encodeURIComponent(termino)}&language=es&format=json&origin=*`;
-    
+
     const response = await fetch(urlApi);
+    if (!response.ok) {
+      throw new Error(`Error HTTP ${response.status}`);
+    }
     const data = await response.json();
 
     if (data.search && data.search.length > 0) {
@@ -83,7 +91,6 @@ async function consultarDatosAbiertos() {
     } else {
       contenedorResultados.innerHTML = '<p style="color: var(--text-muted);">No se han encontrado registros vinculados a ese término en la API abierta.</p>';
     }
-
   } catch (error) {
     contenedorResultados.innerHTML = '<p style="color: red;">Error al procesar la solicitud con la API externa de Open Data.</p>';
   }

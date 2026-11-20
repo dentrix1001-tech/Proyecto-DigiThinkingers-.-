@@ -5,12 +5,6 @@
     "circunstancias_creacion": "Estructuración de árboles de decisión y reglas de diagnóstico automatizado.",
     "proposito_educativo": "Alimentar el motor de asistencia interactiva (Kakarota) para la orientación técnica de los usuarios."
   },
-  "configuracion_supabase": {
-    "proyecto": "Proyecto-DigiThinkingers",
-    "servicio": "SupaBase",
-    "url_servidor": "https://jgmqtslpyyponvvjwrft.supabase.co",
-    "clave_acceso": "aVqteGsrcLN2odHZ"
-  },
   "version": "1.0.0",
   "departamento": "Asistente Inteligente Kakarota",
   "modulos_guia": [

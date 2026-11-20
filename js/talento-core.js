@@ -1,12 +1,15 @@
 /**
- * ============================================================================
- * FICHA TÉCNICA - SCRIPT TALENTO Y EMPLEO (Depto. 5)
- * ============================================================================
- * @file talento-core.js
- * @author JuanDaniel Blázquez Antón (Dentrix)
- * @description Motor de gestión de directorios de empleo y recomendación de talento.
- * ============================================================================
+- ============================================================================
+- FICHA TÉCNICA - SCRIPT TALENTO Y EMPLEO (Depto. 5)
+- ============================================================================
+- @file talento-core.js
+- @author JuanDaniel Blázquez Antón (Dentrix)
+- @description Motor de gestión de directorios de empleo y recomendación de talento.
+- ============================================================================
  */
+
+const SUPABASE_PORTALES_URL =
+  'https://jgmqtslpyyponvvjwrft.supabase.co/storage/v1/object/public/digithinkingers-json/portales-empleo.json';
 
 document.addEventListener('DOMContentLoaded', () => {
   inicializarTalento();
@@ -14,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function inicializarTalento() {
   await cargarPortalesEmpleo();
-  
+
   const btnFiltrar = document.getElementById('btnFiltrarTalento');
   if (btnFiltrar) {
     btnFiltrar.addEventListener('click', simularBusquedaTalento);
@@ -26,7 +29,10 @@ async function cargarPortalesEmpleo() {
   if (!contenedor) return;
 
   try {
-    const respuesta = await fetch('data/portales-empleo.json');
+    const respuesta = await fetch(SUPABASE_PORTALES_URL, { cache: 'no-store' });
+    if (!respuesta.ok) {
+      throw new Error(`Error HTTP ${respuesta.status}`);
+    }
     const data = await respuesta.json();
 
     let html = '<ul style="list-style: none; padding: 0;">';

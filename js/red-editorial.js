@@ -1,7 +1,10 @@
 /**
- * Motor de Red Editorial y Generador de Widgets - Depto. 2
- * Desarrollado para Proyecto DigiThinkingers / SaludConNutricion.com
+- Motor de Red Editorial y Generador de Widgets - Depto. 2
+- Desarrollado para Proyecto DigiThinkingers / SaludConNutricion.com
  */
+
+const SUPABASE_ALIADOS_URL =
+  'https://jgmqtslpyyponvvjwrft.supabase.co/storage/v1/object/public/digithinkingers-json/aliados-red.json';
 
 document.addEventListener('DOMContentLoaded', () => {
   inicializarRedEditorial();
@@ -10,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 async function inicializarRedEditorial() {
   // Cargar directorio de aliados en el selector o lista si existe
   await cargarDirectorioAliados();
-  
+
   // Activar generador de widgets
   const selectTipo = document.getElementById('tipoWidget');
   if (selectTipo) {
@@ -24,7 +27,10 @@ async function cargarDirectorioAliados() {
   if (!contenedorDirectorio) return;
 
   try {
-    const respuesta = await fetch('data/aliados-red.json');
+    const respuesta = await fetch(SUPABASE_ALIADOS_URL, { cache: 'no-store' });
+    if (!respuesta.ok) {
+      throw new Error(`Error HTTP ${respuesta.status}`);
+    }
     const data = await respuesta.json();
 
     let html = '<ul style="list-style: none; padding: 0;">';
@@ -39,7 +45,6 @@ async function cargarDirectorioAliados() {
     });
     html += '</ul>';
     contenedorDirectorio.innerHTML = html;
-
   } catch (error) {
     contenedorDirectorio.innerHTML = '<p style="color: var(--text-muted);">Directorio de red sincronizado localmente con éxito.</p>';
   }
@@ -48,7 +53,7 @@ async function cargarDirectorioAliados() {
 function actualizarCodigoWidget() {
   const tipo = document.getElementById('tipoWidget').value;
   const areaTexto = document.getElementById('widgetCodeOutput');
-  
+
   if (!areaTexto) return;
 
   if (tipo === 'texto') {

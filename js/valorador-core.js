@@ -1,7 +1,10 @@
 /**
- * Motor de Auditoría y Valoración de Potencialidades Web - Depto. 1
- * Desarrollado para Proyecto DigiThinkingers / SaludConNutricion.com
+- Motor de Auditoría y Valoración de Potencialidades Web - Depto. 1
+- Desarrollado para Proyecto DigiThinkingers / SaludConNutricion.com
  */
+
+const SUPABASE_CRITERIOS_URL =
+  'https://jgmqtslpyyponvvjwrft.supabase.co/storage/v1/object/public/digithinkingers-json/criterios-auditoria.json';
 
 document.addEventListener('DOMContentLoaded', () => {
   inicializarValorador();
@@ -17,7 +20,7 @@ function inicializarValorador() {
 async function procesarAuditoriaWeb() {
   const inputUrl = document.getElementById('inputUrlAuditoria');
   const contenedorResultados = document.getElementById('resultadoAuditoriaContainer');
-  
+
   if (!inputUrl || !contenedorResultados) return;
 
   const urlEvaluar = inputUrl.value.trim();
@@ -36,16 +39,17 @@ async function procesarAuditoriaWeb() {
   `;
 
   try {
-    // Carga de criterios desde el JSON
-    const respuestaData = await fetch('data/criterios-auditoria.json');
+    const respuestaData = await fetch(SUPABASE_CRITERIOS_URL, { cache: 'no-store' });
+    if (!respuestaData.ok) {
+      throw new Error(`Error HTTP ${respuestaData.status}`);
+    }
     const criteriosData = await respuestaData.json();
 
     setTimeout(() => {
       evaluarYRenderizarResultados(urlEvaluar, criteriosData, contenedorResultados);
     }, 1000);
-
   } catch (error) {
-    // Evaluación alternativa en caso de ejecución directa en local sin servidor web
+    // Evaluación alternativa en caso de fallo de red o acceso externo
     const criteriosFallback = {
       metricas: [
         { id: 'https_check', nombre: 'Cifrado SSL / HTTPS', peso: 25, descripcion: 'Garantiza la privacidad y seguridad.' },
@@ -63,12 +67,12 @@ async function procesarAuditoriaWeb() {
 function evaluarYRenderizarResultados(url, data, contenedor) {
   const esHttps = url.toLowerCase().startsWith('https://');
   let puntuacionTotal = 0;
-  
+
   let desloseHTML = '<ul style="list-style: none; padding: 0; margin-top: 15px;">';
 
   data.metricas.forEach(metrica => {
     let cumplido = false;
-    
+
     if (metrica.id === 'https_check') {
       cumplido = esHttps;
     } else {
@@ -95,7 +99,7 @@ function evaluarYRenderizarResultados(url, data, contenedor) {
     <p><strong>Índice de Rendimiento Estimado:</strong> <span style="font-size: 1.2rem; font-weight: bold; color: var(--azul);">${puntuacionTotal} / 100</span></p>
     ${desloseHTML}
     <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px;">
-      * Este informe constituye la versión inicial operativa del prototipo. En la fase de despliegue a largo plazo se conectará con la API de Google PageSpeed e inspección DNS directa.
+- Este informe constituye la versión inicial operativa del prototipo. En la fase de despliegue a largo plazo se conectará con la API de Google PageSpeed e inspección DNS directa.
     </p>
   `;
 }

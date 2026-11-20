@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suite de Pruebas Operativas — Supabase & 6 Departamentos | DigiThinkingers</title>
+  <style>
+    :root {
+      --azul: #0E5EB8;
+      --azul-claro: #EAF4FF;
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #1f2937;
+      --text-muted: #4b5563;
+      --border: #dbe4f0;
+      --ok-bg: #ecfdf5;
+      --ok-tx: #065f46;
+      --ok-bd: #a7f3d0;
+      --err-bg: #fef2f2;
+      --err-tx: #991b1b;
+      --err-bd: #fecaca;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 30px 16px;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .header-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+
+    .header-box h1 {
+      color: var(--azul);
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+
+    .header-box p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-top: 16px;
+    }
+
+    button {
+      background: var(--azul);
+      color: #ffffff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.92rem;
+    }
+
+    button:hover {
+      background: #0b4992;
+    }
+
+    .summary-pill {
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      background: var(--azul-claro);
+      color: var(--azul);
+      border: 1px solid var(--border);
+    }
+
+    .test-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 14px;
+    }
+
+    .test-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .test-title {
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 1.05rem;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .badge-ok {
+      background: var(--ok-bg);
+      color: var(--ok-tx);
+      border: 1px solid var(--ok-bd);
+    }
+
+    .badge-err {
+      background: var(--err-bg);
+      color: var(--err-tx);
+      border: 1px solid var(--err-bd);
+    }
+
+    .test-detail {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .url-line {
+      font-family: Consolas, monospace;
+      font-size: 0.8rem;
+      color: var(--azul);
+      word-break: break-all;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header-box">
+      <h1>🧪 Suite de Pruebas Operativas — Supabase & 6 Departamentos</h1>
+      <p>Verificación automática de conectividad, estructura JSON y lógica funcional para los Departamentos 1 al 6 del Proyecto DigiThinkingers.</p>
+      <div class="toolbar">
+        <button id="btnRunAllTests">▶ Ejecutar Todas las Pruebas</button>
+        <span id="summaryBadge" class="summary-pill">Esperando ejecución...</span>
+      </div>
+    </div>
+
+    <div id="testResultsList"></div>
+  </div>
+
+  <script>
+    const SUPABASE_BASE = 'https://jgmqtslpyyponvvjwrft.supabase.co/storage/v1/object/public/digithinkingers-json/';
+
+    const DEPT_SPECS = [
+      {
+        id: 'depto1',
+        name: 'Departamento 1: Valorador de Potencialidades',
+        file: 'criterios-auditoria.json',
+        expectedArrayKey: 'metricas',
+        functionalCheck: (json) => {
+          const metricas = Array.isArray(json.metricas) ? json.metricas : [];
+          const hasHttps = metricas.some(m => m.id === 'https_check');
+          const sumPesos = metricas.reduce((acc, m) => acc + (Number(m.peso) || 0), 0);
+          return {
+            ok: metricas.length > 0 && hasHttps,
+            info: `Métricas: ${metricas.length} | Incluye https_check: ${hasHttps ? 'Sí' : 'No'} | Suma pesos: ${sumPesos}`
+          };
+        }
+      },
+      {
+        id: 'depto2',
+        name: 'Departamento 2: Red Editorial & Amigos Web',
+        file: 'aliados-red.json',
+        expectedArrayKey: 'aliados',
+        functionalCheck: (json) => {
+          const aliados = Array.isArray(json.aliados) ? json.aliados : [];
+          const validItems = aliados.every(a => a.nombre && a.url);
+          return {
+            ok: aliados.length > 0 && validItems,
+            info: `Aliados registrados: ${aliados.length} | Campos nombre/url completos: ${validItems ? 'Sí' : 'No'}`
+          };
+        }
+      },
+      {
+        id: 'depto3',
+        name: 'Departamento 3: Hub de Datos Abiertos & Investigación',
+        file: 'fuentes-investigacion.json',
+        expectedArrayKey: 'fuentes',
+        functionalCheck: async (json) => {
+          const fuentes = Array.isArray(json.fuentes) ? json.fuentes : [];
+          const validFuentes = fuentes.every(f => f.nombre && f.url);
+          let wikiOk = false;
+          let wikiCount = 0;
+          try {
+            const r = await fetch('https://www.wikidata.org/w/api.php?action=wbsearchentities&search=Nutrici%C3%B3n&language=es&format=json&origin=*');
+            if (r.ok) {
+              const wData = await r.json();
+              wikiCount = Array.isArray(wData.search) ? wData.search.length : 0;
+              wikiOk = wikiCount > 0;
+            }
+          } catch (_) {
+            wikiOk = false;
+          }
+          return {
+            ok: fuentes.length > 0 && validFuentes && wikiOk,
+            info: `Fuentes JSON: ${fuentes.length} | API Wikidata ("Nutrición"): ${wikiOk ? `OK (${wikiCount} nodos)` : 'Sin respuesta'}`
+          };
+        }
+      },
+      {
+        id: 'depto4',
+        name: 'Departamento 4: Arquitectura Web & Evolución PWA',
+        file: 'arquitectura-pwa.json',
+        expectedArrayKey: 'especificaciones',
+        functionalCheck: (json) => {
+          const specs = Array.isArray(json.especificaciones) ? json.especificaciones : [];
+          const validSpecs = specs.every(s => s.nombre && s.estado && s.descripcion);
+          const envOnline = typeof navigator.onLine === 'boolean';
+          return {
+            ok: specs.length > 0 && validSpecs && envOnline,
+            info: `Especificaciones: ${specs.length} | Campos completos: ${validSpecs ? 'Sí' : 'No'} | Navigator online: ${navigator.onLine}`
+          };
+        }
+      },
+      {
+        id: 'depto5',
+        name: 'Departamento 5: Sindicador de Empleo & Talento',
+        file: 'portales-empleo.json',
+        expectedArrayKey: 'portales',
+        functionalCheck: (json) => {
+          const portales = Array.isArray(json.portales) ? json.portales : [];
+          const validPortales = portales.every(p => p.nombre && p.url);
+          return {
+            ok: portales.length > 0 && validPortales,
+            info: `Portales cargados: ${portales.length} | Campos nombre/url completos: ${validPortales ? 'Sí' : 'No'}`
+          };
+        }
+      },
+      {
+        id: 'depto6',
+        name: 'Departamento 6: Asistente Diagnóstico Kakarota',
+        file: 'diagnostico-reglas.json',
+        expectedArrayKey: 'modulos_guia',
+        functionalCheck: (json) => {
+          const reglas = Array.isArray(json.modulos_guia) ? json.modulos_guia : [];
+          const keys = ['auditoria', 'comunidad', 'investigacion', 'arquitectura', 'empleo'];
+          const matchedKeys = keys.filter(k => reglas.some(r => r.key === k || r.clave === k));
+          return {
+            ok: reglas.length > 0 && matchedKeys.length === keys.length,
+            info: `Reglas totales: ${reglas.length} | Claves cubiertas: ${matchedKeys.length}/${keys.length}`
+          };
+        }
+      }
+    ];
+
+    function renderTestCard(spec, result) {
+      const card = document.createElement('div');
+      card.className = 'test-card';
+      const badgeClass = result.ok ? 'badge badge-ok' : 'badge badge-err';
+      const badgeText = result.ok ? '✅ PASÓ' : '❌ FALLÓ';
+      const url = SUPABASE_BASE + spec.file;
+
+      card.innerHTML = `
+        <div class="test-top">
+          <span class="test-title">${spec.name}</span>
+          <span class="${badgeClass}">${badgeText}</span>
+        </div>
+        <div class="url-line">${url}</div>
+        <div class="test-detail"><strong>Estado HTTP:</strong> ${result.httpStatus} | <strong>Tiempo:</strong> ${result.ms} ms</div>
+        <div class="test-detail"><strong>Verificación funcional:</strong> ${result.info}</div>
+      `;
+      return card;
+    }
+
+    async function runSingleTest(spec) {
+      const start = performance.now();
+      const url = SUPABASE_BASE + spec.file;
+
+      try {
+        const res = await fetch(url, { cache: 'no-store' });
+        const ms = Math.round(performance.now() - start);
+
+        if (!res.ok) {
+          return {
+            ok: false,
+            httpStatus: `HTTP ${res.status}`,
+            ms,
+            info: `No se pudo descargar el archivo desde Supabase (${res.statusText || 'Error'}).`
+          };
+        }
+
+        const data = await res.json();
+        const check = await spec.functionalCheck(data);
+
+        return {
+          ok: Boolean(check.ok),
+          httpStatus: `HTTP ${res.status} OK`,
+          ms,
+          info: check.info
+        };
+      } catch (err) {
+        const ms = Math.round(performance.now() - start);
+        return {
+          ok: false,
+          httpStatus: 'Error de red / JSON',
+          ms,
+          info: err && err.message ? err.message : 'Fallo al consultar o parsear el JSON.'
+        };
+      }
+    }
+
+    async function runAllTests() {
+      const listEl = document.getElementById('testResultsList');
+      const summaryEl = document.getElementById('summaryBadge');
+      listEl.innerHTML = '';
+      summaryEl.textContent = '⏳ Ejecutando pruebas...';
+
+      let passedCount = 0;
+
+      for (const spec of DEPT_SPECS) {
+        const res = await runSingleTest(spec);
+        if (res.ok) passedCount++;
+        listEl.appendChild(renderTestCard(spec, res));
+      }
+
+      summaryEl.textContent = `Resultado: ${passedCount} / ${DEPT_SPECS.length} pruebas correctas`;
+    }
+
+    document.getElementById('btnRunAllTests').addEventListener('click', runAllTests);
+    document.addEventListener('DOMContentLoaded', runAllTests);
+  </script>
+</body>
+</html>

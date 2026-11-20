@@ -1,7 +1,10 @@
 /**
- * Motor de Diagnóstico de Arquitectura PWA y Entorno - Depto. 4
- * Desarrollado para Proyecto DigiThinkingers / SaludConNutricion.com
+- Motor de Diagnóstico de Arquitectura PWA y Entorno - Depto. 4
+- Desarrollado para Proyecto DigiThinkingers / SaludConNutricion.com
  */
+
+const SUPABASE_ARQUITECTURA_URL =
+  'https://jgmqtslpyyponvvjwrft.supabase.co/storage/v1/object/public/digithinkingers-json/arquitectura-pwa.json';
 
 document.addEventListener('DOMContentLoaded', () => {
   inicializarArquitectura();
@@ -20,7 +23,10 @@ async function cargarEspecificacionesTecnicas() {
   if (!contenedorSpecs) return;
 
   try {
-    const respuesta = await fetch('data/arquitectura-pwa.json');
+    const respuesta = await fetch(SUPABASE_ARQUITECTURA_URL, { cache: 'no-store' });
+    if (!respuesta.ok) {
+      throw new Error(`Error HTTP ${respuesta.status}`);
+    }
     const data = await respuesta.json();
 
     let html = '<ul style="list-style: none; padding: 0;">';
@@ -63,7 +69,7 @@ function ejecutarDiagnosticoEntorno() {
         <li style="margin-bottom: 6px;">🌓 <strong>Esquema Visual Actual:</strong> ${modoOscuroActivo ? 'Modo Oscuro (Dark Theme)' : 'Modo Claro (Light Theme)'}</li>
       </ul>
       <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 12px;">
-        * Diagnóstico ejecutado en tiempo real mediante el motor nativo del navegador cliente.
+- Diagnóstico ejecutado en tiempo real mediante el motor nativo del navegador cliente.
       </p>
     `;
   }, 700);

@@ -605,14 +605,28 @@
 <body>
   <a href="#contenido-principal" class="skip-link">Saltar al contenido principal</a>
 
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
   <!-- BARRA SUPERIOR VISIBLE: TRADUCTOR NATIVO DEL NAVEGADOR Y DETECCIÓN GEOGRÁFICA POR IP -->
   <div
-    class="top-translator-bar"
-    role="region"
-    aria-label="Selector de idioma y detección geográfica del navegador"
-    data-supabase-geo-url=""
-    data-supabase-translate-url=""
-  >
+  class="top-translator-bar"
+  role="region"
+  aria-label="Selector de idioma y detección geográfica del navegador"
+  data-supabase-geo-url="https://jgmqtslpyyponvvjwrft.supabase.co/functions/v1/geo-idioma"
+  data-supabase-translate-url=""
+>
     <div class="container translator-inner">
       <div class="translator-controls">
         <label for="browserLangSelect">🌍 Idioma / Lengua del navegador:</label>
@@ -924,318 +938,7 @@
     </div>
   </footer>
 
-  <script>
-    (function () {
-      "use strict";
-
-      const RTL_LANGS = new Set(["ar", "he", "fa", "ur"]);
-      const COUNTRY_TO_LANG = {
-        ES: "es",
-        FR: "fr",
-        DE: "de",
-        AT: "de",
-        CH: "de",
-        IT: "it",
-        PT: "pt",
-        BR: "pt",
-        GB: "en",
-        US: "en",
-        CA: "en",
-        AU: "en",
-        IE: "en",
-        NL: "nl",
-        BE: "nl",
-        RU: "ru",
-        JP: "ja",
-        CN: "zh-CN",
-        TW: "zh-TW",
-        KR: "ko",
-        SA: "ar",
-        AE: "ar",
-        EG: "ar",
-        MA: "ar"
-      };
-
-      const BASE_LANG_CODES = [
-        "es", "eu", "ca", "gl", "en", "en-US", "en-GB", "fr", "de", "it",
-        "pt", "pt-BR", "nl", "ru", "ja", "zh-CN", "zh-TW", "ko", "ar", "hi",
-        "sv", "no", "da", "fi", "pl", "tr", "el", "cs", "ro", "hu", "uk", "he"
-      ];
-
-      let suggestedLangCode = null;
-
-      function getDisplayNames(uiLocale) {
-        try {
-          if (typeof Intl !== "undefined" && typeof Intl.DisplayNames === "function") {
-            return new Intl.DisplayNames([uiLocale || "es"], { type: "language" });
-          }
-        } catch (_) {
-          // Fallback silencioso
-        }
-        return null;
-      }
-
-      function formatLanguageLabel(code, displayNames) {
-        const cleanCode = String(code || "").trim();
-        if (!cleanCode) return "";
-        let friendly = "";
-        if (displayNames) {
-          try {
-            friendly = displayNames.of(cleanCode) || displayNames.of(cleanCode.split("-")[0]) || "";
-          } catch (_) {
-            friendly = "";
-          }
-        }
-        if (friendly && friendly.toLowerCase() !== cleanCode.toLowerCase()) {
-          const cap = friendly.charAt(0).toUpperCase() + friendly.slice(1);
-          return cap + " (" + cleanCode + ")";
-        }
-        return cleanCode;
-      }
-
-      function collectBrowserLanguages() {
-        const set = new Set(BASE_LANG_CODES);
-        const navLangs = Array.isArray(navigator.languages) && navigator.languages.length > 0
-          ? navigator.languages
-          : [navigator.language || "es"];
-
-        navLangs.forEach((lang) => {
-          if (lang && typeof lang === "string") {
-            set.add(lang.trim());
-            const base = lang.split("-")[0];
-            if (base) set.add(base.trim());
-          }
-        });
-
-        return Array.from(set);
-      }
-
-      function populateLanguageSelect() {
-        const select = document.getElementById("browserLangSelect");
-        if (!select) return;
-
-        const displayNames = getDisplayNames(document.documentElement.lang || "es");
-        const codes = collectBrowserLanguages();
-
-        const options = codes.map((code) => ({
-          code: code,
-          label: formatLanguageLabel(code, displayNames)
-        }));
-
-        options.sort((a, b) => a.label.localeCompare(b.label, "es", { sensitivity: "base" }));
-
-        select.innerHTML = "";
-        options.forEach((opt) => {
-          const optionEl = document.createElement("option");
-          optionEl.value = opt.code;
-          optionEl.textContent = opt.label;
-          select.appendChild(optionEl);
-        });
-
-        const savedLang = localStorage.getItem("awa_preferred_lang") || "es";
-        if (!Array.from(select.options).some((o) => o.value === savedLang)) {
-          const customOpt = document.createElement("option");
-          customOpt.value = savedLang;
-          customOpt.textContent = formatLanguageLabel(savedLang, displayNames);
-          select.prepend(customOpt);
-        }
-        select.value = savedLang;
-      }
-
-      async function applyLanguage(langCode) {
-        const code = (langCode || "es").trim();
-        const baseCode = code.split("-")[0].toLowerCase();
-        const isRtl = RTL_LANGS.has(baseCode);
-
-        document.documentElement.lang = code;
-        document.documentElement.dir = isRtl ? "rtl" : "ltr";
-
-        const mainRoot = document.querySelector("[data-translatable-root]");
-        if (mainRoot) {
-          mainRoot.setAttribute("lang", code);
-          mainRoot.setAttribute("dir", isRtl ? "rtl" : "ltr");
-        }
-
-        localStorage.setItem("awa_preferred_lang", code);
-
-        const displayNames = getDisplayNames(code);
-        const activeLabelEl = document.getElementById("activeLangLabel");
-        if (activeLabelEl) {
-          activeLabelEl.textContent = formatLanguageLabel(code, displayNames);
-        }
-
-        // Soporte experimental nativo del navegador si existiera Translator API
-        if (typeof window.Translator !== "undefined" && typeof window.Translator.create === "function" && baseCode !== "es") {
-          try {
-            const canTranslate = typeof window.Translator.availability === "function"
-              ? await window.Translator.availability({ sourceLanguage: "es", targetLanguage: baseCode })
-              : "readily";
-
-            if (canTranslate && canTranslate !== "unavailable" && mainRoot) {
-              const translator = await window.Translator.create({
-                sourceLanguage: "es",
-                targetLanguage: baseCode
-              });
-              const nodes = mainRoot.querySelectorAll("h1, h2, h3, p, a, span.card-cta");
-              for (let i = 0; i < nodes.length; i++) {
-                const el = nodes[i];
-                if (el.children.length === 0 && el.textContent && el.textContent.trim().length > 0) {
-                  if (!el.dataset.origText) {
-                    el.dataset.origText = el.textContent;
-                  }
-                  el.textContent = await translator.translate(el.dataset.origText);
-                }
-              }
-            }
-          } catch (_) {
-            // Si la API nativa no está activa o no soporta el par de idiomas, mantiene el texto original sin fallar
-          }
-        } else if (baseCode === "es" && mainRoot) {
-          const nodes = mainRoot.querySelectorAll("[data-orig-text]");
-          nodes.forEach((el) => {
-            el.textContent = el.dataset.origText;
-          });
-        }
-      }
-
-      function updateClock() {
-        const telemetryEl = document.getElementById("telemetryDataText");
-        if (!telemetryEl) return;
-
-        const now = new Date();
-        const fechaStr = now.toLocaleDateString("es-ES", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit"
-        });
-        const horaStr = now.toLocaleTimeString("es-ES");
-        const netText = window.cachedGeoSummary || "Zona geográfica pendiente de consulta";
-
-        telemetryEl.textContent = fechaStr + " - " + horaStr + " | " + netText;
-      }
-
-      async function detectGeoAndLanguage() {
-        const geoTextEl = document.getElementById("geoSuggestionText");
-        const useSuggestedBtn = document.getElementById("useSuggestedLangBtn");
-        const barEl = document.querySelector(".top-translator-bar");
-        const supabaseGeoUrl = barEl ? (barEl.dataset.supabaseGeoUrl || "").trim() : "";
-
-        const endpoint = supabaseGeoUrl || "https://ipapi.co/json/";
-        const controller = new AbortController();
-        const timer = setTimeout(() => controller.abort(), 3500);
-
-        try {
-          const response = await fetch(endpoint, { signal: controller.signal });
-          clearTimeout(timer);
-          if (!response.ok) throw new Error("Respuesta no válida");
-
-          const data = await response.json();
-          const countryCode = (data.country_code || data.country || "").toUpperCase();
-          const city = data.city || "Ubicación regional";
-          const ip = data.ip || "Protegida";
-
-          window.cachedGeoSummary = city + (countryCode ? ", " + countryCode : "") + " (IP: " + ip + ")";
-          updateClock();
-
-          const mappedLang = COUNTRY_TO_LANG[countryCode] || (navigator.language || "es");
-          suggestedLangCode = mappedLang;
-
-          const displayNames = getDisplayNames(mappedLang);
-          const langLabel = formatLanguageLabel(mappedLang, displayNames);
-
-          if (geoTextEl) {
-            geoTextEl.textContent =
-              "Zona detectada: " + city + (countryCode ? " (" + countryCode + ")" : "") +
-              " · Idioma sugerido: " + langLabel;
-          }
-          if (useSuggestedBtn) {
-            useSuggestedBtn.style.display = "inline-block";
-          }
-        } catch (_) {
-          clearTimeout(timer);
-          const fallbackLang = (navigator.languages && navigator.languages[0]) || navigator.language || "es";
-          suggestedLangCode = fallbackLang;
-          window.cachedGeoSummary = "Red local / Detección por navegador (" + fallbackLang + ")";
-          updateClock();
-
-          if (geoTextEl) {
-            geoTextEl.textContent = "Sugerencia por navegador: " + formatLanguageLabel(fallbackLang, getDisplayNames(fallbackLang));
-          }
-          if (useSuggestedBtn) {
-            useSuggestedBtn.style.display = "inline-block";
-          }
-        }
-      }
-
-      function initThemeToggle() {
-        const themeToggleBtn = document.getElementById("themeToggleBtn");
-        const themeText = document.getElementById("themeText");
-        const htmlElement = document.documentElement;
-
-        const savedTheme = localStorage.getItem("theme") || "light";
-        if (savedTheme === "dark") {
-          htmlElement.setAttribute("data-theme", "dark");
-          if (themeText) themeText.textContent = "Modo Claro";
-        }
-
-        if (themeToggleBtn) {
-          themeToggleBtn.addEventListener("click", () => {
-            if (htmlElement.getAttribute("data-theme") === "dark") {
-              htmlElement.removeAttribute("data-theme");
-              localStorage.setItem("theme", "light");
-              if (themeText) themeText.textContent = "Modo Oscuro";
-            } else {
-              htmlElement.setAttribute("data-theme", "dark");
-              localStorage.setItem("theme", "dark");
-              if (themeText) themeText.textContent = "Modo Claro";
-            }
-          });
-        }
-      }
-
-      document.addEventListener("DOMContentLoaded", () => {
-        populateLanguageSelect();
-        initThemeToggle();
-        updateClock();
-        setInterval(updateClock, 1000);
-        detectGeoAndLanguage();
-
-        const initialLang = localStorage.getItem("awa_preferred_lang") || "es";
-        if (initialLang !== "es") {
-          applyLanguage(initialLang);
-        }
-
-        const applyBtn = document.getElementById("applyLangBtn");
-        const resetBtn = document.getElementById("resetLangBtn");
-        const selectEl = document.getElementById("browserLangSelect");
-        const useSuggestedBtn = document.getElementById("useSuggestedLangBtn");
-
-        if (applyBtn && selectEl) {
-          applyBtn.addEventListener("click", () => applyLanguage(selectEl.value));
-        }
-        if (resetBtn && selectEl) {
-          resetBtn.addEventListener("click", () => {
-            selectEl.value = "es";
-            applyLanguage("es");
-          });
-        }
-        if (useSuggestedBtn && selectEl) {
-          useSuggestedBtn.addEventListener("click", () => {
-            if (suggestedLangCode) {
-              if (!Array.from(selectEl.options).some((o) => o.value === suggestedLangCode)) {
-                const opt = document.createElement("option");
-                opt.value = suggestedLangCode;
-                opt.textContent = formatLanguageLabel(suggestedLangCode, getDisplayNames(suggestedLangCode));
-                selectEl.prepend(opt);
-              }
-              selectEl.value = suggestedLangCode;
-              applyLanguage(suggestedLangCode);
-            }
-          });
-        }
-      });
-    })();
-  </script>
+ <script src="js/awa-translator.js"></script>
 </body>
 
 </html>

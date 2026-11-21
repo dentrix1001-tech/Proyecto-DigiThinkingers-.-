@@ -56,6 +56,69 @@
     "sw", "am", "ti", "so", "rw", "mg", "zu", "xh", "af", "ha", "yo", "ig"
   ];
 
+  const PHRASE_DICT = {
+    en: {
+      "saltar al contenido principal": "Skip to main content",
+      "aplicar idioma": "Apply language",
+      "restablecer (es)": "Reset (ES)",
+      "usar idioma sugerido": "Use suggested language",
+      "portal profesional": "Professional Portal",
+      "conocimiento": "Knowledge",
+      "contenido": "Content",
+      "proyectos": "Projects",
+      "accesibilidad y cc by 4.0": "Accessibility & CC BY 4.0",
+      "contacto": "Contact",
+      "modo oscuro": "Dark Mode",
+      "modo claro": "Light Mode",
+      "brindis por el conocimiento": "A Toast to Knowledge",
+      "zona central de contenido": "Central Content Area",
+      "educación": "Education",
+      "investigación": "Research",
+      "tecnología": "Technology",
+      "innovación": "Innovation",
+      "construcción de proyectos": "Project Building"
+    },
+    eu: {
+      "saltar al contenido principal": "Jauzi eduki nagusira",
+      "aplicar idioma": "Hizkuntza aplikatu",
+      "restablecer (es)": "Berrezarri (ES)",
+      "usar idioma sugerido": "Iradokitako hizkuntza erabili",
+      "portal profesional": "Atari Profesionala",
+      "conocimiento": "Ezagutza",
+      "contenido": "Edukia",
+      "proyectos": "Proiektuak",
+      "accesibilidad y cc by 4.0": "Irisgarritasuna eta CC BY 4.0",
+      "contacto": "Kontaktua",
+      "modo oscuro": "Modu Iluna",
+      "modo claro": "Modu Argia",
+      "brindis por el conocimiento": "Ezagutzaren aldeko topa",
+      "zona central de contenido": "Edukiaren Erdialdeko Gunea",
+      "educación": "Hezkuntza",
+      "investigación": "Ikerketa",
+      "tecnología": "Teknologia",
+      "innovación": "Berrikuntza",
+      "construcción de proyectos": "Proiektuen Eraikuntza"
+    },
+    fr: {
+      "saltar al contenido principal": "Aller au contenu principal",
+      "aplicar idioma": "Appliquer la langue",
+      "restablecer (es)": "Réinitialiser (ES)",
+      "usar idioma sugerido": "Utiliser la langue suggérée",
+      "portal profesional": "Portail Professionnel",
+      "conocimiento": "Connaissance",
+      "contenido": "Contenu",
+      "proyectos": "Projets",
+      "accesibilidad y cc by 4.0": "Accessibilité et CC BY 4.0",
+      "contacto": "Contact",
+      "modo oscuro": "Mode Sombre",
+      "modo claro": "Mode Clair",
+      "educación": "Éducation",
+      "investigación": "Recherche",
+      "tecnología": "Technologie",
+      "innovación": "Innovation"
+    }
+  };
+
   let suggestedLangCode = null;
 
   function getDisplayNames(uiLocale) {
@@ -140,6 +203,60 @@
     select.value = savedLang;
   }
 
+  function restoreOriginalTexts(rootScope) {
+    const elements = rootScope.querySelectorAll("[data-orig-text]");
+    elements.forEach((el) => {
+      el.textContent = el.dataset.origText;
+    });
+  }
+
+  async function translateElements(rootScope, baseCode) {
+    const dict = PHRASE_DICT[baseCode] || null;
+    const selector = "h1, h2, h3, h4, p, a, button, label, span.card-cta, .nav a";
+    const nodes = rootScope.querySelectorAll(selector);
+
+    let nativeTranslator = null;
+    if (typeof window.Translator !== "undefined" && typeof window.Translator.create === "function" && baseCode !== "es") {
+      try {
+        const canTranslate = typeof window.Translator.availability === "function"
+          ? await window.Translator.availability({ sourceLanguage: "es", targetLanguage: baseCode })
+          : "readily";
+
+        if (canTranslate && canTranslate !== "unavailable") {
+          nativeTranslator = await window.Translator.create({
+            sourceLanguage: "es",
+            targetLanguage: baseCode
+          });
+        }
+      } catch (_) {
+        nativeTranslator = null;
+      }
+    }
+
+    for (let i = 0; i < nodes.length; i++) {
+      const el = nodes[i];
+      if (!el) continue;
+      if (el.closest(".top-translator-bar") && !["BUTTON", "LABEL"].includes(el.tagName)) continue;
+      if (el.children.length > 0 && !(el.children.length === 1 && el.children[0].tagName === "SPAN" && el.classList.contains("theme-toggle"))) continue;
+
+      const raw = (el.textContent || "").trim();
+      if (!raw) continue;
+
+      if (!el.dataset.origText) {
+        el.dataset.origText = el.textContent;
+      }
+
+      const key = el.dataset.origText.trim().toLowerCase();
+      if (dict && dict[key]) {
+        el.textContent = dict[key];
+      } else if (nativeTranslator) {
+        try {
+          el.textContent = await nativeTranslator.translate(el.dataset.origText);
+        } catch (_) {}
+      }
+    }
+  }
+
   async function applyLanguage(langCode) {
     const code = (langCode || "es").trim();
     const baseCode = code.split("-")[0].toLowerCase();
@@ -148,7 +265,7 @@
     document.documentElement.lang = code;
     document.documentElement.dir = isRtl ? "rtl" : "ltr";
 
-    const mainRoot = document.querySelector("[data-translatable-root]");
+    const mainRoot = document.querySelector("[data-translatable-root]") || document.body;
     if (mainRoot) {
       mainRoot.setAttribute("lang", code);
       mainRoot.setAttribute("dir", isRtl ? "rtl" : "ltr");
@@ -161,31 +278,10 @@
       activeLabelEl.textContent = formatLanguageLabel(code, getDisplayNames(code));
     }
 
-    if (typeof window.Translator !== "undefined" && typeof window.Translator.create === "function" && baseCode !== "es") {
-      try {
-        const canTranslate = typeof window.Translator.availability === "function"
-          ? await window.Translator.availability({ sourceLanguage: "es", targetLanguage: baseCode })
-          : "readily";
+    restoreOriginalTexts(document);
 
-        if (canTranslate && canTranslate !== "unavailable" && mainRoot) {
-          const translator = await window.Translator.create({
-            sourceLanguage: "es",
-            targetLanguage: baseCode
-          });
-          const nodes = mainRoot.querySelectorAll("h1, h2, h3, p, a, span.card-cta");
-          for (let i = 0; i < nodes.length; i++) {
-            const el = nodes[i];
-            if (el.children.length === 0 && el.textContent && el.textContent.trim().length > 0) {
-              if (!el.dataset.origText) el.dataset.origText = el.textContent;
-              el.textContent = await translator.translate(el.dataset.origText);
-            }
-          }
-        }
-      } catch (_) {}
-    } else if (baseCode === "es" && mainRoot) {
-      mainRoot.querySelectorAll("[data-orig-text]").forEach((el) => {
-        el.textContent = el.dataset.origText;
-      });
+    if (baseCode !== "es") {
+      await translateElements(document, baseCode);
     }
   }
 

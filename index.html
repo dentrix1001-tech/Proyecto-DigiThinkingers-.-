@@ -145,74 +145,6 @@
       margin: 0 auto;
     }
 
-    /* Barra Superior Institucional y Traductor Nativo Visible */
-    .top-translator-bar {
-      background: var(--azul-claro);
-      border-bottom: 1px solid var(--border-color);
-      padding: 10px 0;
-      font-size: 0.9rem;
-    }
-
-    .translator-inner {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .translator-controls {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .translator-controls label {
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .translator-controls select {
-      background: var(--bg-card);
-      color: var(--text-main);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 6px 10px;
-      font-size: 0.9rem;
-      min-width: 210px;
-    }
-
-    .translator-btn {
-      background: var(--azul);
-      color: #FFFFFF;
-      border: none;
-      border-radius: 8px;
-      padding: 7px 12px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .translator-btn:hover {
-      background: var(--azul-hover);
-    }
-
-    .translator-btn.secondary {
-      background: var(--bg-card);
-      color: var(--text-main);
-      border: 1px solid var(--border-color);
-    }
-
-    .geo-suggestion {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
-      font-size: 0.86rem;
-    }
-
     header.main-header {
       background: var(--bg-card);
       border-bottom: 1px solid var(--border-color);
@@ -533,28 +465,6 @@
       padding: 44px 20px;
     }
 
-    .footer-top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-      padding-bottom: 24px;
-      margin-bottom: 24px;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .telemetry-box {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: var(--bg-card);
-      padding: 12px 18px;
-      border-radius: 12px;
-      border: 1px solid var(--border-color);
-      font-size: 0.9rem;
-    }
-
     .footer-inner {
       text-align: center;
     }
@@ -595,39 +505,12 @@
       .hero-info h1 {
         font-size: 1.75rem;
       }
-      .translator-controls select {
-        min-width: 160px;
-      }
     }
   </style>
 </head>
 
 <body>
   <a href="#contenido-principal" class="skip-link">Saltar al contenido principal</a>
-
-  <!-- BARRA SUPERIOR VISIBLE: TRADUCTOR Y DETECCIÓN GEOGRÁFICA -->
-  <div
-    class="top-translator-bar"
-    role="region"
-    aria-label="Selector de idioma y detección geográfica"
-    data-supabase-geo-url="https://jgmqtslpyyponvvjwrft.supabase.co/functions/v1/geo-idioma"
-  >
-    <div class="container translator-inner">
-      <div class="translator-controls">
-        <label for="browserLangSelect">🌍 Idioma / Lengua:</label>
-        <select id="browserLangSelect" aria-label="Seleccionar idioma"></select>
-        <button type="button" class="translator-btn" id="applyLangBtn">Aplicar idioma</button>
-        <button type="button" class="translator-btn secondary" id="resetLangBtn">Restablecer (ES)</button>
-      </div>
-
-      <div class="geo-suggestion" id="geoSuggestionBox">
-        <span id="geoSuggestionText">Detectando zona geográfica e idioma sugerido...</span>
-        <button type="button" class="translator-btn secondary" id="useSuggestedLangBtn" style="display: none;">
-          Usar idioma sugerido
-        </button>
-      </div>
-    </div>
-  </div>
 
   <header class="main-header">
     <div class="container nav">
@@ -649,7 +532,7 @@
     </div>
   </header>
 
-  <main id="contenido-principal" data-translatable-root="true">
+  <main id="contenido-principal">
     <!-- SECCIÓN HERO INSTITUCIONAL -->
     <section class="hero" id="conocimiento">
       <div class="container">
@@ -883,24 +766,6 @@
 
   <footer class="site-footer" id="contacto">
     <div class="container">
-      <div class="footer-top-bar">
-        <div class="telemetry-box" id="recursoTelemetryWidget">
-          <span aria-hidden="true">🌐</span>
-          <div>
-            <strong>Telemetry Node:</strong>
-            <span id="telemetryDataText">Sincronizando red y hora local...</span>
-          </div>
-        </div>
-
-        <div class="telemetry-box">
-          <span aria-hidden="true">🧭</span>
-          <div>
-            <strong>Idioma activo:</strong>
-            <span id="activeLangLabel">Español (es)</span>
-          </div>
-        </div>
-      </div>
-
       <div class="footer-inner">
         <h3>Tecnología • Investigación • Innovación</h3>
         <p>
@@ -923,7 +788,33 @@
     </div>
   </footer>
 
-  <script src="js/awa-translator.js"></script>
+  <script>
+    (function () {
+      const themeToggleBtn = document.getElementById("themeToggleBtn");
+      const themeText = document.getElementById("themeText");
+      const htmlElement = document.documentElement;
+
+      const savedTheme = localStorage.getItem("theme") || "light";
+      if (savedTheme === "dark") {
+        htmlElement.setAttribute("data-theme", "dark");
+        if (themeText) themeText.textContent = "Modo Claro";
+      }
+
+      if (themeToggleBtn) {
+        themeToggleBtn.addEventListener("click", () => {
+          if (htmlElement.getAttribute("data-theme") === "dark") {
+            htmlElement.removeAttribute("data-theme");
+            localStorage.setItem("theme", "light");
+            if (themeText) themeText.textContent = "Modo Oscuro";
+          } else {
+            htmlElement.setAttribute("data-theme", "dark");
+            localStorage.setItem("theme", "dark");
+            if (themeText) themeText.textContent = "Modo Claro";
+          }
+        });
+      }
+    })();
+  </script>
 </body>
 
 </html>

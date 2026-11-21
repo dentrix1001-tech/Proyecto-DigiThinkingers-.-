@@ -128,6 +128,10 @@
         fr: {
           "portal profesional de tecnología, investigación e innovación.": "Portail professionnel de technologie, recherche et innovation.",
           "aplicar idioma, restablecer o usar idioma sugerido.": "Appliquer la langue, réinitialiser ou utiliser la langue suggérée."
+        },
+        de: {
+          "portal profesional de tecnología, investigación e innovación.": "Professionelles Portal für Technologie, Forschung und Innovation.",
+          "aplicar idioma, restablecer o usar idioma sugerido.": "Sprache anwenden, zurücksetzen oder vorgeschlagene Sprache verwenden."
         }
       };
 
@@ -183,19 +187,21 @@
 
       document.getElementById("btnTraducirMuestra").addEventListener("click", async () => {
         const lang = document.getElementById("testLang").value;
-        const p1 = document.getElementById("p1");
-        const p2 = document.getElementById("p2");
-        const items = [p1, p2];
+        const items = [document.getElementById("p1"), document.getElementById("p2")];
         const dict = DICT[lang] || null;
-        let usedEngine = "ninguno (sin diccionario ni window.Translator para " + lang + ")";
 
+        let usedEngine = "ninguno";
+        let nativeError = null;
         let nativeTr = null;
+
         if (typeof window.Translator !== "undefined" && typeof window.Translator.create === "function") {
           try {
             nativeTr = await window.Translator.create({ sourceLanguage: "es", targetLanguage: lang });
-          } catch (_) {
-            nativeTr = null;
+          } catch (err) {
+            nativeError = "create(): " + (err && err.message ? err.message : String(err));
           }
+        } else {
+          nativeError = "window.Translator.create no disponible";
         }
 
         for (const el of items) {
@@ -207,7 +213,8 @@
             try {
               el.textContent = await nativeTr.translate(orig);
               usedEngine = "window.Translator nativo (" + lang + ")";
-            } catch (_) {
+            } catch (err) {
+              nativeError = "translate(): " + (err && err.message ? err.message : String(err));
               el.textContent = orig;
             }
           } else {
@@ -215,7 +222,10 @@
           }
         }
 
-        writeLog("Resultado traducción muestra a [" + lang + "]", { motorUsado: usedEngine });
+        writeLog("Resultado traducción muestra a [" + lang + "]", {
+          motorUsado: usedEngine,
+          detalleAPI: nativeError || "sin errores"
+        });
       });
 
       document.getElementById("btnRestaurarMuestra").addEventListener("click", () => {

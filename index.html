@@ -605,18 +605,17 @@
 <body>
   <a href="#contenido-principal" class="skip-link">Saltar al contenido principal</a>
 
-  <!-- BARRA SUPERIOR VISIBLE: TRADUCTOR NATIVO DEL NAVEGADOR Y DETECCIÓN GEOGRÁFICA POR IP -->
+  <!-- BARRA SUPERIOR VISIBLE: TRADUCTOR Y DETECCIÓN GEOGRÁFICA -->
   <div
     class="top-translator-bar"
     role="region"
-    aria-label="Selector de idioma y detección geográfica del navegador"
+    aria-label="Selector de idioma y detección geográfica"
     data-supabase-geo-url="https://jgmqtslpyyponvvjwrft.supabase.co/functions/v1/geo-idioma"
-    data-supabase-translate-url=""
   >
     <div class="container translator-inner">
       <div class="translator-controls">
-        <label for="browserLangSelect">🌍 Idioma / Lengua del navegador:</label>
-        <select id="browserLangSelect" aria-label="Seleccionar idioma disponible en el navegador"></select>
+        <label for="browserLangSelect">🌍 Idioma / Lengua:</label>
+        <select id="browserLangSelect" aria-label="Seleccionar idioma"></select>
         <button type="button" class="translator-btn" id="applyLangBtn">Aplicar idioma</button>
         <button type="button" class="translator-btn secondary" id="resetLangBtn">Restablecer (ES)</button>
       </div>

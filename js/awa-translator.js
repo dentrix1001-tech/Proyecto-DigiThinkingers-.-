@@ -116,6 +116,27 @@
       "investigación": "Recherche",
       "tecnología": "Technologie",
       "innovación": "Innovation"
+    },
+    de: {
+      "saltar al contenido principal": "Zum Hauptinhalt springen",
+      "aplicar idioma": "Sprache anwenden",
+      "restablecer (es)": "Zurücksetzen (ES)",
+      "usar idioma sugerido": "Vorgeschlagene Sprache verwenden",
+      "portal profesional": "Professionelles Portal",
+      "conocimiento": "Wissen",
+      "contenido": "Inhalt",
+      "proyectos": "Projekte",
+      "accesibilidad y cc by 4.0": "Barrierefreiheit & CC BY 4.0",
+      "contacto": "Kontakt",
+      "modo oscuro": "Dunkelmodus",
+      "modo claro": "Hellmodus",
+      "brindis por el conocimiento": "Ein Toast auf das Wissen",
+      "zona central de contenido": "Zentraler Inhaltsbereich",
+      "educación": "Bildung",
+      "investigación": "Forschung",
+      "tecnología": "Technologie",
+      "innovación": "Innovation",
+      "construcción de proyectos": "Projektentwicklung"
     }
   };
 
@@ -369,7 +390,7 @@
     }
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
+  function onReady() {
     populateLanguageSelect();
     initThemeToggle();
     updateClock();
@@ -406,5 +427,11 @@
         applyLanguage(suggestedLangCode);
       });
     }
-  });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", onReady);
+  } else {
+    onReady();
+  }
 })();
